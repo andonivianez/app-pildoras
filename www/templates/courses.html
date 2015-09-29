@@ -1,0 +1,29 @@
+<ion-view view-title="TAK DEMO">  
+  <ion-content>
+    <ion-refresher on-refresh="loadCourses()"  pulling-text="Estira para actualizar..."
+          refreshing-text="Actualizando!">      
+    </ion-refresher>
+    <div class="list">
+        <ion-item class="item-thumbnail-left" href="#/app/courses/{{pill.id}}" ng-repeat="pill in pills | orderBy:'pill.id':true" ng-if="pill.translations.es.image_url.indexOf('http') > -1">
+          <img ng-src="{{pill.translations.es.image_url}}" />
+       <!--   <i id="thumbnail-label" class="icon ion-ios-videocam balanced" ng-if="pill.translations.es.video_url == null"></i> !-->
+          <span id="thumbnail-label" class="fa-stack fa-lg" ng-if="pill.translations.es.resource_url != 'null'">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-file fa-stack-1x positive"></i>
+          </span>
+       <!--   <i id="thumbnail-label" class="icon fa fa-file balanced" ng-if="pill.translations.es.resource_url == null"></i> !-->
+          <span id="thumbnail-label" class="fa-stack fa-lg" ng-if="pill.translations.es.video_url != 'null'">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-video-camera fa-stack-1x positive"></i>
+          </span>
+          <h2 class="course-title">{{pill.name}}</h2>
+          <p class="course-date">{{pill.date | date:" yyyy · MM · dd"}}</p>
+          <div class="row data-row">
+            <div class="col"><rating ng-model="pill.stats.rating_value_avg" max="5"></rating></div>
+          </div>
+        </ion-item>
+    </div>
+  </ion-content>
+  <a href="#/app/search">
+  <button class="button button-fab button-fab-bottom-right button-balanced icon ion-search waves-effect waves-button waves-light"></button></a>
+</ion-view>

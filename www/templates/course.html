@@ -1,0 +1,61 @@
+<ion-view hide-nav-bar="true">
+  <ion-content id="detalle_pildora">
+	<a href="#/app/courses">
+		<button class="button button-fab button-fab-bottom-left button-balanced icon ion-ios-arrow-back waves-effect waves-button waves-light pill-back"></button>
+	</a>
+<!--	<div class="item item-image pildora-info-full">
+		 img src="http://www.miscocheselectricos.com/archivos/tesla-model-s-sunset-628-1354200468.jpg"> 
+	</div>-->
+	<videoplayer></videoplayer>
+	
+    <div class="row responsive-sm">
+	    <h2 class="col">Píldora 1 en detalle {{pill.id}}</h2>
+	    <h6 class="col">2015 · 06 · 15</h6>
+    </div>
+    <div class="col rating_detalle"><rating ng-model="course.rating_static" max="5"></rating></div>
+    <div class="row">
+    	<div class="col col-50">
+	    	<button class="button icon-left ion-chatbox detail-button item-text-wrap balanced">Comentarios</button>
+	    </div>
+	    <div class="col col-50">
+	    	<button class="button icon-left ion-edit detail-button item-text-wrap balanced">Test</button>
+	    </div>
+	</div>
+
+	<ul class="list pill-options">
+	  <li class="item item-toggle">
+	     <span><i class="icon ion-pin"></i>  Disponible sin conexión</span>
+	     <label class="toggle toggle-balanced">
+	       <input type="checkbox">
+	       <div class="track">
+	         <div class="handle"></div>
+	       </div>
+	     </label>
+	  </li>
+
+	  <li class="item item-toggle">
+	   <span><i class="icon ion-eye"></i>  Ver más tarde</span>
+	   <label class="toggle toggle-balanced">
+	     <input type="checkbox">
+	     <div class="track">
+	       <div class="handle"></div>
+	     </div>
+	   </label>
+	  </li>
+	 </ul>
+
+	<div class="row responsive-sm">
+		<h2 class="col">Descripción</h2>
+		  <div class="col">TAK ha creado una innovadora solución de aprendizaje online, en la que el protagonista es el usuario, que puede disfrutar de una experiencia pedagógica, práctica y enriquecedora.
+La Universidad Corporativa Online de TAK permite al cliente destacar los cursos y acciones formativas más interesantes para el usuario, permitiéndole valorarlas y comentarlas. Asimismo, el usuario tiene acceso a su propio perfil e itinerario formativo
+			</div>
+	</div>
+
+
+	<div class="row responsive-sm">
+		<h2 class="col">Comentarios</h2>
+		
+    </div>
+
+  </ion-content>
+</ion-view>
