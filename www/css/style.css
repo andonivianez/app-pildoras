@@ -67,9 +67,13 @@ ul.rating li i {
 }
 
 .course-date{
-      left: 5.1em;
+    left: 5.1em;
+    top: 0.5em;
     position: relative;
+}
 
+.course-highlight{
+  background-color: #e8f0e6;
 }
 
 .data-row{
@@ -97,6 +101,7 @@ ul.rating li i {
   position: relative;
   text-align: center;
   font-size: 25px;
+  letter-spacing: 0.5em;
 }
 
 .detail-button{
@@ -122,6 +127,43 @@ ul.rating li i {
   top: 1em !important;
 }
 
+.test-block{
+  color: #80b51b;
+  background-color: white;
+  padding: 0.5em;
+  border: 1px solid;
+}
+
+.test-number{
+  text-align: center;
+  padding-right: 1.5em;
+  border-left: 1px solid #80b51b;
+}
+
+.detailPill-title, .detailPill-descripcion, .detailPill-descripcion-text, .detailPill-comentarios{
+  color:#666666;
+  margin-bottom: inherit !important;
+}
+
+.detailPill-descripcion-text{
+  padding: 0.2em;
+}
+
+.detailPill-comentarios-insert{
+  color: #80b51b;
+  border-bottom: 1px solid #838383;
+}
+
+.detailPill-disponibleOffline{
+  border-top: 1px solid #acacac !important;
+  border-bottom: 1px solid #acacac !important;
+}
+
+.dataPill-authorData{
+  margin: inherit !important;
+  color: #999999;
+  letter-spacing: 0.05em;
+}
 
 /*    Video    */
 .centerme {
@@ -145,14 +187,12 @@ ul.rating li i {
 /* Login
 ==================================*/
 .login-logo{
-  width: 88%;
-  position: relative !important;
-  left: 0 !important;
-  top: 2em;
-  background: url('../img/logo.png') left;
-  background-size: cover;
-  height: 8em;
-  width: 90%;
+    width: 86%;
+    position: relative !important;
+    left: -2em !important;
+    top: 2em;
+    max-height: 260px;
+    max-width: 640px;
 }
 
 .app-icon {
@@ -178,3 +218,8 @@ ul.rating li i {
 .item-md-label .input-label{
   padding-left: 0.8em !important;
 }
+
+
+
+
+/*   Test window  */
