@@ -99,7 +99,7 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $
 
 })
 
-app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $stateParams, $ionicPopup, $rootScope) {
+app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $stateParams, $ionicPopup, $rootScope, $ionicPopover) {
     $scope.pills = []
     $scope.pill = {}
     $rootScope.detail_pill = {};
@@ -110,9 +110,11 @@ app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $statePar
         angular.forEach(pillList, function(pill) {
             angular.forEach(pill.category, function(category) {
                  $rootScope.categories[category.id] = category;
-                //console.log(category)
+                  $scope.$apply();
+
             });
         });
+       
     }
 
     $scope.loadCourses = function(){
@@ -120,6 +122,7 @@ app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $statePar
             $scope.pills = response.pills;
             $scope.$broadcast('scroll.refreshComplete');
             $scope.getEachPill($scope.pills);
+
         });
     }; 
 
@@ -178,7 +181,35 @@ app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $statePar
     //estrellas
     $scope.rate = 3;
     $scope.max = 5;
-    $scope.readOnly = true;
+    $rootScope.readOnly = true;
+
+    /*PopOver*/
+      // .fromTemplateUrl() method
+    $ionicPopover.fromTemplateUrl('templates/popover.html', {
+      scope: $scope
+    }).then(function(popover) {
+      $scope.popover = popover;
+    });
+
+
+    $scope.openPopover = function($event) {
+      $scope.popover.show($event);
+    };
+    $scope.closePopover = function() {
+      $scope.popover.hide();
+    };
+    //Cleanup the popover when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.popover.remove();
+    });
+    // Execute action on hide popover
+    $scope.$on('popover.hidden', function() {
+      // Execute action
+    });
+    // Execute action on remove popover
+    $scope.$on('popover.removed', function() {
+      // Execute action
+    });
 
 })
 
@@ -219,6 +250,7 @@ app.controller('SearchCtrl', function($scope, $stateParams) {
 
 app.controller('TestCtrl', function($scope, $stateParams) {
   console.log($stateParams)
+
 
 });
 
@@ -305,5 +337,26 @@ app.directive('videoplayer', function() {
   return {
     restrict: 'E',
     templateUrl: 'templates/video_popover.html'
+  }
+});
+
+app.directive('prevtest', function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'templates/prev_test.html'
+  }
+});
+
+app.directive('testing', function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'templates/testing.html'
+  }
+});
+
+app.directive('endtest', function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'templates/last_test.html'
   }
 });
