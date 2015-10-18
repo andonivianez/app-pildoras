@@ -49,6 +49,10 @@
     right: 1em;
 }
 
+.sideMenuList{
+
+}
+
 ul.rating li {
   display: inline;
   border: 0px;
@@ -187,22 +191,9 @@ ul.rating li i {
 /* Login
 ==================================*/
 .login-logo{
-    width: 86%;
     position: relative !important;
-    left: -2em !important;
-    top: 2em;
-    max-height: 260px;
-    max-width: 640px;
-}
-
-.app-icon {
-    background-color: #f2f7e8;
-    background: url('../img/logo.png') center;
-    background-size: cover;
-    border-radius: 50%;
-    height: 125px;
-    margin: 0 auto;
-    width: 125px;
+    left: -14.5em !important;
+    top: 3em;
 }
 
 .social-login {

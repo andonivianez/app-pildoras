@@ -18,23 +18,21 @@
 
   <ion-side-menu side="left">
 
-    <ion-content>
+    <ion-content scroll="true">
       <div class="item item-avatar login-avatar">
         <p class="avatar-name balanced">Andoni Vianez</p>
       </div>
-      <ion-list style="overflow: auto;">
-        <ion-item menu-close ng-controller="CoursesCtrl" collection-repeat="cat in categories">
+      <ion-list class="sideMenuList" >
+        <ion-item class="item item-icon-left" menu-close ng-controller="CoursesCtrl" collection-repeat="cat in categories">
           {{cat.name}}
         </ion-item>
-
-        <div class="bottom-block">
-        <ion-item menu-close ng-click="login()">
+        <ion-item class="item item-icon-left" menu-close ng-click="login()">
           [DEV]Login
         </ion-item>
-        <ion-item menu-close href="#/app/test">
+        <ion-item class="item item-icon-left" menu-close href="#/app/test">
           [DEV]Test pantalla
         </ion-item>
-          <ion-item fixed-outside class="item item-icon-left" menu-close href="#/app/search">
+          <ion-item class="item item-icon-left" menu-close href="#/app/search">
             <i class="icon ion-ios-clock-outline"></i> Ver más tarde
           </ion-item>
           <ion-item menu-close class="item item-icon-left" href="#/app/browse">
@@ -45,18 +43,15 @@
             <i class="icon ion-android-time"></i>
               Historial
           </ion-item>
-<!--
           <ion-item menu-close class="item item-icon-left" href="#/app/config">
             <i class="icon ion-android-settings"></i>
             Configuración
           </ion-item>
-          !-->
 
           <ion-item menu-close class="item item-icon-left" ng-click="logout()">
             <i class="icon ion-android-exit"></i>
             Desconectar
           </ion-item>
-        </div>
       </ion-list>
     </ion-content>
   </ion-side-menu>
