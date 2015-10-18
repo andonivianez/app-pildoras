@@ -42,6 +42,16 @@ angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ng
     }
   })
 
+  .state('app.test', {
+    url: '/test',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/test.html',
+        controller: 'TestCtrl'
+      }
+    }
+  })
+
   .state('app.browse', {
       url: '/browse',
       views: {

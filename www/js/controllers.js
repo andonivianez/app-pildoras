@@ -1,13 +1,18 @@
 var app = angular.module('starter.controllers', [])
 
-app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup) {
+app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $localstorage, $ionicLoading, LoginService) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
   // listen for the $ionicView.enter event:
   $scope.$on('$ionicView.enter', function(e) {
-    $scope.login();
+    //$scope.login();
+    $localstorage.setObject('login', {
+      username: 'Thoughts',
+      password: 'Today was a good day'
+    });
+    //console.log($localstorage.get('name'));
   });
 
   // Form data for the login modal
@@ -32,14 +37,31 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup) {
 
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
+      $scope.loginData = {};
+      $ionicLoading.show({
+        template: 'Intentado conectar...'
+      });
 
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-
-    $timeout(function() {
-        $scope.closeLogin();
-    }, 1000);
+      LoginService.loginUser($scope.loginData.username, $scope.loginData.password).success(function(data) {
+        //si la cosa va bien...
+          //$state.go('tab.dash');
+          console.log(data)
+          $ionicLoading.hide();
+          var alertPopup = $ionicPopup.alert(data);
+          
+      }).error(function(data) {
+        //si no...
+         /* var alertPopup = $ionicPopup.alert({
+              title: 'Login failed!',
+              template: 'Please check your credentials!'
+          });*/
+        var alertPopup = $ionicPopup.alert(data);
+        $ionicLoading.hide();
+      });
+      $timeout(function() {
+          //$scope.closeLogin();
+        $ionicLoading.hide();
+      }, 5000);
   };
 
   //cargamos las categorias en el menú
@@ -77,46 +99,80 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup) {
 
 })
 
-app.controller('CoursesCtrl', function($http,$scope,DataService, $sce) {
+app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $stateParams, $ionicPopup, $rootScope) {
     $scope.pills = []
     $scope.pill = {}
-    $scope.categories = []
-
+    $rootScope.detail_pill = {};
+    $rootScope.categories = [];
+    
     //Get each pill data
-    function getEachPill(pillList) {
-        angular.forEach(pillList, function(value, key) {
-          $scope.pill = value;
-          //console.log($scope.pill)
-          angular.forEach($scope.pill.category, function(value, key) {
-            //console.log(value)
-            if ($scope.categories.indexOf(value.name) == -1){
-                $scope.categories.push(value.name)
-            }
-            console.log($scope.categories)
-          });
+    $scope.getEachPill = function(pillList){
+        angular.forEach(pillList, function(pill) {
+            angular.forEach(pill.category, function(category) {
+                 $rootScope.categories[category.id] = category;
+                //console.log(category)
+            });
         });
     }
 
     $scope.loadCourses = function(){
-        /* //console.log($scope.order)
-           // console.log($scope.courses)*/
         DataService.getPillCourses().then(function(response){
             $scope.pills = response.pills;
             $scope.$broadcast('scroll.refreshComplete');
-            getEachPill($scope.pills);
+            $scope.getEachPill($scope.pills);
         });
     }; 
 
-    $scope.orderCourses = function(){
-        console.log($scope.order)
-        $scope.order = {
-          reverse: true
-        };
+    $scope.orderCourses = function(){//terminar
+     // Show the action sheet
+     var hideSheet = $ionicActionSheet.show({
+       buttons: [
+         { text: 'Por fecha' },
+         { text: 'Por Destacados' },
+         { text: 'Move' },
+         { text: 'Move' }
+       ],
+       cancelText: 'Cancel',
+       cancel: function() {
+            // add cancel code..
+          },
+       buttonClicked: function(index) {
+         return true;
+       }
+     });
+    }
+
+    $scope.getCourseById = function(id){
+      $rootScope.selectedPill = id;
+      angular.forEach($scope.pills, function(value, key) {
+        //console.log(value.id)
+        if (value.id == id){
+            $rootScope.detail_pill[id] = value;
+        }
+      });   
+      console.log($rootScope.detail_pill);
+    }
+
+    $scope.addComment = function(pillId){
+       $ionicPopup.prompt({
+         title: 'Introduce tu comentario',
+         //template: 'Escribe aquí',
+         //inputType: 'password',
+         inputPlaceholder: 'Escribe aquí'
+       }).then(function(res) {
+         console.log('Your password is', res);
+       });
+    }
+
+    function toObject(arr) {
+      var rv = {};
+      for (var i = 0; i < arr.length; ++i)
+        if (arr[i] !== undefined) rv[i] = arr[i];
+      return rv;
     }
 
     $scope.$on('$ionicView.enter', function(e) {
         $scope.loadCourses();
-        //console.log("hola");
     });
 
     //estrellas
@@ -126,14 +182,33 @@ app.controller('CoursesCtrl', function($http,$scope,DataService, $sce) {
 
 })
 
-app.controller('CourseCtrl', function($scope, $stateParams, $sce) {
-    $scope.clipSrc = $sce.trustAsResourceUrl('https://s3-eu-west-1.amazonaws.com/takweb/news/038_gasnatural.mp4');
-    $scope.myPreviewImageSrc = "http://www.miscocheselectricos.com/archivos/tesla-model-s-sunset-628-1354200468.jpg";
-     
+app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $ionicPopup) {
+    $scope.datapill= $rootScope.detail_pill
+    $scope.selectedPill = $rootScope.selectedPill;
+    console.log("El elegido esssssss: "+$scope.selectedPill)
+    //videoplayer params
+    $scope.clipSrc = $sce.trustAsResourceUrl($scope.datapill[$scope.selectedPill].translations.es.video_url);
+    $scope.myPreviewImageSrc = $scope.datapill[$scope.selectedPill].translations.es.image_url;
+    //end videoplayer params
     $scope.video = function() {
         var videoElements = angular.element(document.querySelector('#player'));
         videoElements[0].pause();
     }
+
+    $scope.backgroundDownload = function(){ //está la info en marcadores
+      var confirmPopup = $ionicPopup.confirm({
+       //title: 'Ver más tarde',
+       template: 'El archivo seleccionado ocupa'+$scope.datapill[$scope.selectedPill].translations.es.resource_size+' MB. <br />¿Quieres tenerlo disponible para sin conexión?'
+     });
+     confirmPopup.then(function(res) {
+       if(res) {
+         console.log('You are sure');
+       } else {
+         console.log('You are not sure');
+       }
+     });
+    }
+
 
 });
 
@@ -142,6 +217,10 @@ app.controller('SearchCtrl', function($scope, $stateParams) {
 
 });
 
+app.controller('TestCtrl', function($scope, $stateParams) {
+  console.log($stateParams)
+
+});
 
 /*Services*/
 
@@ -155,6 +234,30 @@ app.service('DataService', function($http, $q) {
     this.getPillCourses = function() {
         return pillCourses.promise;
     };
+});
+
+app.service('LoginService', function($q, $http) {
+    return {
+        loginUser: function(name, pw) {
+            var taklogin = $q.defer();
+            var promise = taklogin.promise;
+            $http.post("http://app-pildoras.tak.es/app_dev.php/api/login_check", {_username: name, _password: pw}).then(function(response) {
+              console.log("Respuesta del backend"+response.data)
+                taklogin.resolve(response.data);
+            });
+            //taklogin.reject('Wrong credentials.');
+
+            promise.success = function(fn) {
+                promise.then(fn);
+                return promise;
+            }
+            promise.error = function(fn) {
+                promise.then(null, fn);
+                return promise;
+            }
+            return promise;
+        }
+    }
 })
 
 
@@ -174,6 +277,28 @@ app.factory('$localstorage', ['$window', function($window) {
     }
   }
 }]);
+
+app.factory('$localstorage', ['$window', function($window) {
+  return {
+    set: function(key, value) {
+      $window.localStorage[key] = value;
+    },
+    get: function(key, defaultValue) {
+      return $window.localStorage[key] || defaultValue;
+    },
+    setObject: function(key, value) {
+      $window.localStorage[key] = JSON.stringify(value);
+    },
+    getObject: function(key) {
+      return JSON.parse($window.localStorage[key] || '{}');
+    }
+  }
+}]);
+
+
+
+
+
 
 /*     Directivas        */
 app.directive('videoplayer', function() {
