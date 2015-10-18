@@ -18,7 +18,7 @@
   min-height: 1em !important;
 }
 
-.bottom-block{
+.bottomFixedMenuList{
   background-color:#fcfcfc !important;
   position: fixed;
   bottom: 0px;
@@ -26,10 +26,10 @@
   clear: both;
 }
 
-.scroll{
-  height: 100%;
-
+.page_background_color{
+  background-color: #f2f2f2 !important;
 }
+
 
 
 .fa-circle{
@@ -47,6 +47,10 @@
     position: absolute !important;
     bottom: 0.5em;
     right: 1em;
+}
+
+.sideMenuList{
+
 }
 
 ul.rating li {
@@ -187,22 +191,9 @@ ul.rating li i {
 /* Login
 ==================================*/
 .login-logo{
-    width: 86%;
     position: relative !important;
-    left: -2em !important;
-    top: 2em;
-    max-height: 260px;
-    max-width: 640px;
-}
-
-.app-icon {
-    background-color: #f2f7e8;
-    background: url('../img/logo.png') center;
-    background-size: cover;
-    border-radius: 50%;
-    height: 125px;
-    margin: 0 auto;
-    width: 125px;
+    left: -14.5em !important;
+    top: 3em;
 }
 
 .social-login {
@@ -223,3 +214,19 @@ ul.rating li i {
 
 
 /*   Test window  */
+
+.test-back{
+  top: 1em !important;
+}
+
+.test-prev-title{
+  color: #80b51b !important;
+  font-size: 3em;
+  font-family: "Roboto";
+  text-align: center;
+  padding-top: 1em;
+}
+
+.test-center-img{
+  width: 100%;
+}

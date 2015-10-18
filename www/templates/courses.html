@@ -4,7 +4,7 @@
           refreshing-text="Actualizando!">      
     </ion-refresher>
     <div class="list">
-        <ion-item class="item-thumbnail-left" href="#/app/courses/{{pill.id}}" ng-repeat="pill in pills | orderBy:pill.is_highlight:false" ng-if="pill.translations.es.image_url.indexOf('http') > -1" ng-click="getCourseById(pill.id)" ng-class="{'course-highlight': pill.is_highlight}">
+        <ion-item class="item-thumbnail-left" href="#/app/courses/{{selectedPill}}" ng-repeat="pill in pills | orderBy:pill.is_highlight:false" ng-if="pill.translations.es.image_url.indexOf('http') > -1" ng-click="getCourseById(pill.id)" ng-class="{'course-highlight': pill.is_highlight}">
           <img ng-src="{{pill.translations.es.image_url}}" />
        <!--   <i id="thumbnail-label" class="icon ion-ios-videocam balanced" ng-if="pill.translations.es.video_url == null"></i> !-->
           <span id="thumbnail-label" class="fa-stack fa-lg" ng-if="pill.translations.es.resource_url != 'null'">
