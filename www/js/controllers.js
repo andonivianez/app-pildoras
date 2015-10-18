@@ -51,11 +51,11 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $
           
       }).error(function(data) {
         //si no...
-         /* var alertPopup = $ionicPopup.alert({
+         /* var alertPopupFail = $ionicPopup.alert({
               title: 'Login failed!',
               template: 'Please check your credentials!'
           });*/
-        var alertPopup = $ionicPopup.alert(data);
+        var alertPopupLog = $ionicPopup.alert(data);
         $ionicLoading.hide();
       });
       $timeout(function() {
@@ -67,6 +67,7 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $
   //cargamos las categorias en el menú
   $scope.getCategories = function(){
     $scope.categories = courseData.categories();
+    console.log($scope.categories);
   }
   
   $scope.orderCourses = function(){
@@ -109,8 +110,9 @@ app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $statePar
     $scope.getEachPill = function(pillList){
         angular.forEach(pillList, function(pill) {
             angular.forEach(pill.category, function(category) {
+                  //console.log(category)
                  $rootScope.categories[category.id] = category;
-                  $scope.$apply();
+                  //$scope.$apply();
 
             });
         });
@@ -240,6 +242,7 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
      });
     }
 
+   // $location.path("/home");
 
 });
 
@@ -251,6 +254,7 @@ app.controller('SearchCtrl', function($scope, $stateParams) {
 app.controller('TestCtrl', function($scope, $stateParams) {
   console.log($stateParams)
 
+  $scope.process = 'prevtest';
 
 });
 
@@ -309,27 +313,6 @@ app.factory('$localstorage', ['$window', function($window) {
     }
   }
 }]);
-
-app.factory('$localstorage', ['$window', function($window) {
-  return {
-    set: function(key, value) {
-      $window.localStorage[key] = value;
-    },
-    get: function(key, defaultValue) {
-      return $window.localStorage[key] || defaultValue;
-    },
-    setObject: function(key, value) {
-      $window.localStorage[key] = JSON.stringify(value);
-    },
-    getObject: function(key) {
-      return JSON.parse($window.localStorage[key] || '{}');
-    }
-  }
-}]);
-
-
-
-
 
 
 /*     Directivas        */

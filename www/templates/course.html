@@ -1,5 +1,5 @@
 <ion-view hide-nav-bar="true">
-  <ion-content id="detalle_pildora" overflow-scroll="true">
+  <ion-content id="detalle_pildora">
 	<a href="#/app/courses">
 		<button class="button button-fab button-fab-bottom-left button-balanced icon ion-ios-arrow-back waves-effect waves-button waves-light pill-back"></button>
 	</a>
@@ -14,7 +14,7 @@
     </div>
     <div class="col rating_detalle"><rating ng-model="datapill[selectedPill].rating_static" max="5"></rating></div>
     <div class="row">
-		<div class="row test-block" ng-href="#/app/test/{{pill.id}}">
+		<div class="row test-block" ng-href="startTest(selectedPill)">
 		  <div class="col col-75"><b>Test</b></div>
 		  <div class="col test-number">0/0</div>
 		</div>

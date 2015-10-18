@@ -22,10 +22,14 @@
       <div class="item item-avatar login-avatar">
         <p class="avatar-name balanced">Andoni Vianez</p>
       </div>
-      <ion-list class="sideMenuList" >
-          <ion-item class="item item-icon-left" menu-close ng-controller="CoursesCtrl" collection-repeat="cat in categories">
-            {{cat.name}}
-          </ion-item>
+      <div class="list">
+        <div class="sideMenuList" ng-controller="CoursesCtrl" collection-repeat="cat in categories" collection-item-height="75"
+      collection-item-width="'100%'" item-height="50px">
+            <ion-item class="item item-icon-left" menu-close >
+              {{cat.name}}
+            </ion-item>
+        </div>
+
           <ion-item class="item item-icon-left" menu-close ng-click="login()">
             [DEV]Login
           </ion-item>
@@ -53,7 +57,7 @@
               Desconectar
             </ion-item>
           </div>
-      </ion-list>
+      </div>
     </ion-content>
   </ion-side-menu>
 </ion-side-menus>
