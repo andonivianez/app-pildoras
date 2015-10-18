@@ -1,5 +1,5 @@
 <ion-side-menus enable-menu-with-back-views="false">
-  <ion-side-menu-content>
+  <ion-side-menu-content overflow-scroll="true">
     <ion-nav-bar align-title="center" class="bar-balanced">
       <ion-nav-back-button>
       </ion-nav-back-button>
@@ -9,7 +9,7 @@
         </button>
       </ion-nav-buttons>      
       <ion-nav-buttons side="right">
-        <button ng-controller="CoursesCtrl" ng-click="orderCourses()" class="button button-clear ion-android-more-vertical">
+        <button ng-controller="CoursesCtrl" ng-click="popover.show($event)" class="button button-clear ion-android-more-vertical">
         </button>
       </ion-nav-buttons> 
     </ion-nav-bar>
@@ -18,40 +18,41 @@
 
   <ion-side-menu side="left">
 
-    <ion-content scroll="true">
+    <ion-content overflow-scroll="true">
       <div class="item item-avatar login-avatar">
         <p class="avatar-name balanced">Andoni Vianez</p>
       </div>
       <ion-list class="sideMenuList" >
-        <ion-item class="item item-icon-left" menu-close ng-controller="CoursesCtrl" collection-repeat="cat in categories">
-          {{cat.name}}
-        </ion-item>
-        <ion-item class="item item-icon-left" menu-close ng-click="login()">
-          [DEV]Login
-        </ion-item>
-        <ion-item class="item item-icon-left" menu-close href="#/app/test">
-          [DEV]Test pantalla
-        </ion-item>
-          <ion-item class="item item-icon-left" menu-close href="#/app/search">
-            <i class="icon ion-ios-clock-outline"></i> Ver más tarde
+          <ion-item class="item item-icon-left" menu-close ng-controller="CoursesCtrl" collection-repeat="cat in categories">
+            {{cat.name}}
           </ion-item>
-          <ion-item menu-close class="item item-icon-left" href="#/app/browse">
-            <i class="icon ion-pin"></i>
-              Sin conexión
+          <ion-item class="item item-icon-left" menu-close ng-click="login()">
+            [DEV]Login
           </ion-item>
-          <ion-item menu-close class="item item-icon-left" href="#/app/browse">
-            <i class="icon ion-android-time"></i>
-              Historial
+          <ion-item class="item item-icon-left" menu-close href="#/app/test">
+            [DEV]Test pantalla
           </ion-item>
-          <ion-item menu-close class="item item-icon-left" href="#/app/config">
-            <i class="icon ion-android-settings"></i>
-            Configuración
-          </ion-item>
-
-          <ion-item menu-close class="item item-icon-left" ng-click="logout()">
-            <i class="icon ion-android-exit"></i>
-            Desconectar
-          </ion-item>
+          <div class="bottomFixedMenuList">
+            <ion-item class="item item-icon-left" menu-close href="#/app/search">
+              <i class="icon ion-ios-clock-outline"></i> Ver más tarde
+            </ion-item>
+            <ion-item menu-close class="item item-icon-left" href="#/app/browse">
+              <i class="icon ion-pin"></i>
+                Sin conexión
+            </ion-item>
+            <ion-item menu-close class="item item-icon-left" href="#/app/browse">
+              <i class="icon ion-android-time"></i>
+                Historial
+            </ion-item>
+            <ion-item menu-close class="item item-icon-left" href="#/app/config">
+              <i class="icon ion-android-settings"></i>
+              Configuración
+            </ion-item>
+            <ion-item menu-close class="item item-icon-left" ng-click="logout()">
+              <i class="icon ion-android-exit"></i>
+              Desconectar
+            </ion-item>
+          </div>
       </ion-list>
     </ion-content>
   </ion-side-menu>

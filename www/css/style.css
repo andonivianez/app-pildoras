@@ -18,7 +18,7 @@
   min-height: 1em !important;
 }
 
-.bottom-block{
+.bottomFixedMenuList{
   background-color:#fcfcfc !important;
   position: fixed;
   bottom: 0px;
@@ -26,10 +26,10 @@
   clear: both;
 }
 
-.scroll{
-  height: 100%;
-
+.page_background_color{
+  background-color: #f2f2f2 !important;
 }
+
 
 
 .fa-circle{
@@ -214,3 +214,19 @@ ul.rating li i {
 
 
 /*   Test window  */
+
+.test-back{
+  top: 1em !important;
+}
+
+.test-prev-title{
+  color: #80b51b !important;
+  font-size: 3em;
+  font-family: "Roboto";
+  text-align: center;
+  padding-top: 1em;
+}
+
+.test-center-img{
+  width: 100%;
+}
