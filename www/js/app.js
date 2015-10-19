@@ -52,12 +52,12 @@ angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ng
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
+  .state('app.settings', {
+      url: '/settings',
       views: {
         'menuContent': {
-          templateUrl: 'templates/browse.html'
-
+          templateUrl: 'templates/ajustes/ajustes.html',
+          controller: 'SettingsCtrl'
         }
       }
     })

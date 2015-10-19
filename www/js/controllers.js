@@ -100,7 +100,8 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $
 
 })
 
-app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $stateParams, $ionicPopup, $rootScope, $ionicPopover) {
+app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $stateParams, $ionicPopup, $rootScope, $ionicPopover, $ionicHistory) {
+    $ionicHistory.clearHistory();
     $scope.pills = []
     $scope.pill = {}
     $rootScope.detail_pill = {};
@@ -270,6 +271,11 @@ app.controller('TestCtrl', function($scope, $stateParams) {
     $scope.process = 'prevtest';
   }
 
+});
+
+app.controller('SettingsCtrl', function($scope, $stateParams, $ionicHistory) {
+  console.log($stateParams)
+  $ionicHistory.clearHistory();
 });
 
 /*Services*/
