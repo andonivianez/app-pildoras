@@ -43,7 +43,7 @@ angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ng
   })
 
   .state('app.test', {
-    url: '/test',
+    url: '/test/:testId',
     views: {
       'menuContent': {
         templateUrl: 'templates/test.html',

@@ -30,6 +30,7 @@
   background-color: #f2f2f2 !important;
 }
 
+
 .fa-circle{
   color: white;
 }
@@ -227,4 +228,16 @@ ul.rating li i {
 
 .test-center-img{
   width: 100%;
+}
+
+.testTitle{
+  color: #80b51b !important;
+  text-align: center;
+  font-size: 3em;
+  padding-top: 1em;
+}
+
+.testItems{
+  border: none !important;
+
 }

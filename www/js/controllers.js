@@ -215,10 +215,11 @@ app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $statePar
 
 })
 
-app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $ionicPopup) {
+app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $ionicPopup, $location, $state) {
     $scope.datapill= $rootScope.detail_pill
+    console.log($scope.datapill)
     $scope.selectedPill = $rootScope.selectedPill;
-    console.log("El elegido esssssss: "+$scope.selectedPill)
+    //console.log("El elegido esssssss: "+$scope.selectedPill)
     //videoplayer params
     $scope.clipSrc = $sce.trustAsResourceUrl($scope.datapill[$scope.selectedPill].translations.es.video_url);
     $scope.myPreviewImageSrc = $scope.datapill[$scope.selectedPill].translations.es.image_url;
@@ -231,18 +232,24 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
     $scope.backgroundDownload = function(){ //está la info en marcadores
       var confirmPopup = $ionicPopup.confirm({
        //title: 'Ver más tarde',
-       template: 'El archivo seleccionado ocupa'+$scope.datapill[$scope.selectedPill].translations.es.resource_size+' MB. <br />¿Quieres tenerlo disponible para sin conexión?'
+       template: 'El archivo seleccionado ocupa '+$scope.datapill[$scope.selectedPill].translations.es.resource_size+' Bytes. <br />¿Quieres tenerlo disponible para sin conexión?'
      });
      confirmPopup.then(function(res) {
        if(res) {
          console.log('You are sure');
+         //console.log($scope.backgroundDownloadToogle.checked)
        } else {
          console.log('You are not sure');
        }
      });
     }
 
-   // $location.path("/home");
+    $scope.startTest = function(pillId){
+      //console.log("que pasa")
+      ///$location.path("#/app/test/"+pillId);
+      $state.go('app.test', {testId: pillId})
+    }
+   
 
 });
 
@@ -255,6 +262,13 @@ app.controller('TestCtrl', function($scope, $stateParams) {
   console.log($stateParams)
 
   $scope.process = 'prevtest';
+
+  $scope.beginTest = function(){
+    $scope.process = 'testing';
+  }
+  $scope.testClean = function(){
+    $scope.process = 'prevtest';
+  }
 
 });
 
@@ -280,6 +294,30 @@ app.service('LoginService', function($q, $http) {
             $http.post("http://app-pildoras.tak.es/app_dev.php/api/login_check", {_username: name, _password: pw}).then(function(response) {
               console.log("Respuesta del backend"+response.data)
                 taklogin.resolve(response.data);
+            });
+            //taklogin.reject('Wrong credentials.');
+
+            promise.success = function(fn) {
+                promise.then(fn);
+                return promise;
+            }
+            promise.error = function(fn) {
+                promise.then(null, fn);
+                return promise;
+            }
+            return promise;
+        }
+    }
+})
+
+app.service('SendDataService', function($q, $http) {
+    return {
+        sendComment: function(pillId, userId, comment) {
+            var commenter = $q.defer();
+            var promise = commenter.promise;
+            $http.post("http://app-pildoras.tak.es/app_dev.php/api/login_check", {_username: name, _password: pw}).then(function(response) {
+              console.log("Respuesta del backend"+response.data)
+                commenter.resolve(response.data);
             });
             //taklogin.reject('Wrong credentials.');
 

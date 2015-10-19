@@ -5,7 +5,9 @@
 	</a>
 <!--	<div class="item item-image pildora-info-full">
 		 img src="http://www.miscocheselectricos.com/archivos/tesla-model-s-sunset-628-1354200468.jpg"> 
-	</div>-->
+	</div>
+
+	-->
 	<videoplayer></videoplayer>
 	
     <div class="row responsive-sm">
@@ -14,7 +16,7 @@
     </div>
     <div class="col rating_detalle"><rating ng-model="datapill[selectedPill].rating_static" max="5"></rating></div>
     <div class="row">
-		<div class="row test-block" ng-href="startTest(selectedPill)">
+		<div class="row test-block" ng-click="startTest(selectedPill)">
 		  <div class="col col-75"><b>Test</b></div>
 		  <div class="col test-number">0/0</div>
 		</div>
@@ -23,7 +25,7 @@
 	<ul class="list pill-options">
 	  <li class="item item-toggle detailPill-disponibleOffline">
 	     <span><i class="icon ion-pin"></i>  Disponible sin conexión</span>
-	     <label class="toggle toggle-balanced" ng-click="backgroundDownload()">
+	     <label class="toggle toggle-balanced" ng-click="backgroundDownload()" ng-model="backgroundDownloadToogle">
 	       <input type="checkbox">
 	       <div class="track">
 	         <div class="handle"></div>

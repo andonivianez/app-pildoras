@@ -23,28 +23,27 @@
         <p class="avatar-name balanced">Andoni Vianez</p>
       </div>
       <div class="list">
-        <div class="sideMenuList" ng-controller="CoursesCtrl" collection-repeat="cat in categories" collection-item-height="75"
-      collection-item-width="'100%'" item-height="50px">
+        <div class="sideMenuList" ng-controller="CoursesCtrl" ng-repeat="cat in categories track by $index">
             <ion-item class="item item-icon-left" menu-close >
               {{cat.name}}
             </ion-item>
         </div>
 
-          <ion-item class="item item-icon-left" menu-close ng-click="login()">
+          <ion-item class="item" menu-close ng-click="login()">
             [DEV]Login
           </ion-item>
-          <ion-item class="item item-icon-left" menu-close href="#/app/test">
+          <ion-item class="item" menu-close href="#/app/test">
             [DEV]Test pantalla
           </ion-item>
           <div class="bottomFixedMenuList">
-            <ion-item class="item item-icon-left" menu-close href="#/app/search">
+            <ion-item class="item item-icon-left" menu-close >
               <i class="icon ion-ios-clock-outline"></i> Ver más tarde
             </ion-item>
-            <ion-item menu-close class="item item-icon-left" href="#/app/browse">
+            <ion-item menu-close class="item item-icon-left">
               <i class="icon ion-pin"></i>
                 Sin conexión
             </ion-item>
-            <ion-item menu-close class="item item-icon-left" href="#/app/browse">
+            <ion-item menu-close class="item item-icon-left">
               <i class="icon ion-android-time"></i>
                 Historial
             </ion-item>
