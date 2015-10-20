@@ -23,7 +23,7 @@
           <h2 class="course-title" ng-model="title">{{pill.translations.es.title}}</h2>
           <p class="course-date"><b>{{pill.author}}</b> | {{pill.date_start | date:" yyyy · MM · dd"}}</p>
           <div class="row data-row">
-            <div class="col"><rating ng-model="pill.stats.rating_value_avg" max="5"></rating></div>
+            <div class="col"><rating readonly="readOnly" ng-model="pill.stats.rating_value_avg" max="5"></rating></div>
           </div>
         </ion-item>
     </div>

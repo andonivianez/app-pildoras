@@ -66,7 +66,8 @@ angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ng
       views: {
         'menuContent': {
           templateUrl: 'templates/courses.html',
-          controller: 'CoursesCtrl'
+          controller: 'CoursesCtrl',
+          cache: true
         }
       }
     })

@@ -30,6 +30,9 @@
   background-color: #f2f2f2 !important;
 }
 
+h1, h2{
+  font-family: "Roboto", regular;
+}
 
 .fa-circle{
   color: white;
@@ -168,6 +171,21 @@ ul.rating li i {
   letter-spacing: 0.05em;
 }
 
+.popup{
+  width: 88% !important;
+  border-radius: 3px !important;
+}
+
+.popup-buttons{
+  width: 16em !important;
+  right: 0 !important;
+  margin-left: auto !important;
+}
+
+.popup-head{ 
+  padding: 0.2em 10px;
+}
+
 /*    Video    */
 .centerme {
     margin: 0 auto;
@@ -241,3 +259,25 @@ ul.rating li i {
   border: none !important;
 
 }
+
+
+/*  Background download    */
+.backgroundPopUpDownloadIcon{
+  width: 100%;
+  right: 0.2em;
+  top: 0.25em;
+  position: relative;
+}
+
+.backgroundPopUpDownloadButtons{
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #80b51b;
+  width: 64% !important;
+  margin: inherit !important;
+  padding: inherit !important;
+  padding-bottom: 0.5em !important;
+  margin-left: auto !important;
+}
+

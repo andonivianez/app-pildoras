@@ -129,24 +129,6 @@ app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $statePar
         });
     }; 
 
-    $scope.orderCourses = function(){//terminar
-     // Show the action sheet
-     var hideSheet = $ionicActionSheet.show({
-       buttons: [
-         { text: 'Por fecha' },
-         { text: 'Por Destacados' },
-         { text: 'Move' },
-         { text: 'Move' }
-       ],
-       cancelText: 'Cancel',
-       cancel: function() {
-            // add cancel code..
-          },
-       buttonClicked: function(index) {
-         return true;
-       }
-     });
-    }
 
     $scope.getCourseById = function(id){
       $rootScope.selectedPill = id;
@@ -170,13 +152,6 @@ app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $statePar
        });
     }
 
-    function toObject(arr) {
-      var rv = {};
-      for (var i = 0; i < arr.length; ++i)
-        if (arr[i] !== undefined) rv[i] = arr[i];
-      return rv;
-    }
-
     $scope.$on('$ionicView.enter', function(e) {
         $scope.loadCourses();
     });
@@ -184,7 +159,6 @@ app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $statePar
     //estrellas
     $scope.rate = 3;
     $scope.max = 5;
-    $rootScope.readOnly = true;
 
     /*PopOver*/
       // .fromTemplateUrl() method
@@ -214,16 +188,24 @@ app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $statePar
       // Execute action
     });
 
+    $scope.readOnly = true;
+
 })
 
 app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $ionicPopup, $location, $state) {
     $scope.datapill= $rootScope.detail_pill
-    console.log($scope.datapill)
+    console.log($scope.datapill);
+
+    $rootScope.historial = [];
+
+    //meter función para que meta en el puto historial cada vez que entra
+
     $scope.selectedPill = $rootScope.selectedPill;
     //console.log("El elegido esssssss: "+$scope.selectedPill)
     //videoplayer params
     $scope.clipSrc = $sce.trustAsResourceUrl($scope.datapill[$scope.selectedPill].translations.es.video_url);
     $scope.myPreviewImageSrc = $scope.datapill[$scope.selectedPill].translations.es.image_url;
+    $scope.resource_size = $scope.datapill[$scope.selectedPill].translations.es.resource_size;
     //end videoplayer params
     $scope.video = function() {
         var videoElements = angular.element(document.querySelector('#player'));
@@ -232,17 +214,24 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
 
     $scope.backgroundDownload = function(){ //está la info en marcadores
       var confirmPopup = $ionicPopup.confirm({
-       //title: 'Ver más tarde',
-       template: 'El archivo seleccionado ocupa '+$scope.datapill[$scope.selectedPill].translations.es.resource_size+' Bytes. <br />¿Quieres tenerlo disponible para sin conexión?'
-     });
-     confirmPopup.then(function(res) {
-       if(res) {
-         console.log('You are sure');
-         //console.log($scope.backgroundDownloadToogle.checked)
-       } else {
-         console.log('You are not sure');
-       }
-     });
+      //  title: '', // String. The title of the popup.
+        cssClass: 'courseBackgroundPopUp', // String, The custom CSS class name
+        //template: '<a>Estoy es una prueba de lo que saldría</a>', // String (optional). The html template to place in the popup body.
+        templateUrl: 'templates/popups/backgroundDownload.html', // String (optional). The URL of an html template to place in the popup   body.
+        cancelText: 'Cancelar', // String (default: 'Cancel'). The text of the Cancel button.
+        cancelType: 'backgroundPopUpDownloadButtons', // String (default: 'button-default'). The type of the Cancel button.
+        okText: 'Aceptar', // String (default: 'OK'). The text of the OK button.
+        okType: 'backgroundPopUpDownloadButtons', // String (default: 'button-positive'). The type of the OK button.
+       //template: 'El archivo seleccionado ocupa '+$scope.datapill[$scope.selectedPill].translations.es.resource_size+' Bytes. <br />¿Quieres tenerlo disponible para sin conexión?'
+      });
+      confirmPopup.then(function(res) {
+        if(res) {
+          console.log('You are sure');
+          //console.log($scope.backgroundDownloadToogle.checked)
+        } else {
+          console.log('You are not sure');
+        }
+      });
     }
 
     $scope.startTest = function(pillId){
@@ -250,8 +239,10 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
       ///$location.path("#/app/test/"+pillId);
       $state.go('app.test', {testId: pillId})
     }
-   
-
+    $scope.max = 5;
+    $scope.readOnly = true;
+    $scope.rate = $scope.datapill[$scope.selectedPill].rating_static;
+    console.log($scope.rate);
 });
 
 app.controller('SearchCtrl', function($scope, $stateParams) {

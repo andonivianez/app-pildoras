@@ -14,7 +14,7 @@
 	    <h2 class="col detailPill-title">{{datapill[selectedPill].translations.es.title}}</h2>
 	    <h4 class="col dataPill-authorData"><b>{{datapill[selectedPill].author}}</b> | {{datapill[selectedPill].date_start| date:" yyyy · MM · dd"}}</h4>
     </div>
-    <div class="col rating_detalle"><rating ng-model="datapill[selectedPill].rating_static" max="5"></rating></div>
+    <div class="col rating_detalle"><rating readonly="readOnly" ng-model="rate" max="max"></rating></div>
     <div class="row">
 		<div class="row test-block" ng-click="startTest(selectedPill)">
 		  <div class="col col-75"><b>Test</b></div>
