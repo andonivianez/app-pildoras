@@ -239,10 +239,24 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
       ///$location.path("#/app/test/"+pillId);
       $state.go('app.test', {testId: pillId})
     }
+    
+    //rating
     $scope.max = 5;
     $scope.readOnly = true;
     $scope.rate = $scope.datapill[$scope.selectedPill].rating_static;
     console.log($scope.rate);
+
+    $scope.startTest = function(pillId){
+      //console.log("que pasa")
+      ///$location.path("#/app/test/"+pillId);
+      $state.go('app.test', {testId: pillId});
+
+    }
+
+
+    //meter video al historial
+    $scope.videoControls = function(){this.paused?this.play():this.pause();}
+
 });
 
 app.controller('SearchCtrl', function($scope, $stateParams) {
