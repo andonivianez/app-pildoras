@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <meta http-equiv="Content-Security-Policy" content="default-src *; script-src &apos;self&apos; &apos;unsafe-inline&apos; &apos;unsafe-eval&apos; *; style-src  &apos;self&apos; &apos;unsafe-inline&apos; *">
+    <meta http-equiv="Content-Security-Policy" content="script-src &apos;self&apos; http://* &apos;unsafe-inline&apos; &apos;unsafe-eval&apos;; ">
     <title></title>
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
 
@@ -20,11 +20,13 @@
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/ionic-service-core/ionic-core.js"></script>
     <script src="lib/ionic-service-push/ionic-push.js"></script>
-    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
     <script src="lib/ionic-rating/ionic-rating.js"></script>
-
-    <!-- cordova script (this will be a 404 during development) -->
+    <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
     <script src="cordova.js"></script>
+    <script src="cordova_plugins.js"></script>
+    <script src="lib/ngstorage/ngStorage.min.js"></script>
+    <script src="lib/angular-svg-round-progressbar/build/roundProgress.min.js"></script>
+    <script src="lib/ionic-cache-src/ionic-cache-src.js"></script>
 
     <!-- your app's js -->
     <script src="lib/ionic-material/dist/ionic.material.min.js"></script>

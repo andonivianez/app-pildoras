@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.takpildorasalpha843606" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>tak-pildoras-alpha</name>
-  <description>&#xD;
-        An Ionic Framework and Cordova project.&#xD;
+<widget id="com.ionicframework.takpildorasalpha" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>Tak Pildoras App</name>
+  <description>&#xD;&#xD;&#xD;
+        Aplicaci�n de p�ldoras de TAK.&#xD;&#xD;&#xD;
     </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">&#xD;
-      Ionic Framework Team&#xD;
+  <author email="sistemas@tak.es" href="https://www.tak.es/">&#xD;&#xD;&#xD;
+      TAK&#xD;&#xD;&#xD;
     </author>
   <content src="index.html"/>
+  <allow-intent href="*"/>
   <access origin="*"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
@@ -15,7 +16,9 @@
   <preference name="android-minSdkVersion" value="16"/>
   <preference name="BackupWebStorage" value="none"/>
   <preference name="SplashScreen" value="screen"/>
-  <preference name="SplashScreenDelay" value="4000"/>
+  <preference name="SplashScreenDelay" value="3000"/>
+  <preference name="InAppBrowserStorageEnabled" value="true"/>
+  <preference name="LoadingPageDialog" value="Cargando..."/>
   <platform name="ios">
     <preference name="KeyboardDisplayRequiresUserAction" value="false"/>
     <splash src="resources\ios\splash\Default-568h@2x~iphone.png" width="640" height="1136"/>

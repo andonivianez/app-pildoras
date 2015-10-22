@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ngCordova', 'starter.controllers', 'ionic-material', 'ionic.rating', 'jett.ionic.filter.bar', 'ionMdInput'])
+angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ngCordova', 'starter.controllers', 'ionic-material', 'ionic.rating', 'jett.ionic.filter.bar', 'ionMdInput', 'ionic-cache-src'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -19,15 +19,6 @@ angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ng
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-        // then override any default you want
-    window.plugins.nativepagetransitions.globalOptions.duration = 500;
-    window.plugins.nativepagetransitions.globalOptions.iosdelay = 350;
-    window.plugins.nativepagetransitions.globalOptions.androiddelay = 350;
-    window.plugins.nativepagetransitions.globalOptions.winphonedelay = 350;
-    window.plugins.nativepagetransitions.globalOptions.slowdownfactor = 4;
-    // these are used for slide left/right only currently
-    window.plugins.nativepagetransitions.globalOptions.fixedPixelsTop = 0;
-    window.plugins.nativepagetransitions.globalOptions.fixedPixelsBottom = 0;
   });
 })
 
@@ -93,6 +84,6 @@ angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ng
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/courses');
 
-  $ionicConfigProvider.navBar.alignTitle('center')
-  $ionicConfigProvider.views.transition('none');
+  $ionicConfigProvider.navBar.alignTitle('center');
+  $ionicConfigProvider.views.transition("none");
 });
