@@ -100,8 +100,9 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $
 
 })
 
-app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $stateParams, $ionicPopup, $rootScope, $ionicPopover, $ionicHistory) {
+app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $stateParams, $ionicPopup, $rootScope, $ionicPopover, $ionicHistory, $state) {
     $ionicHistory.clearHistory();
+    $ionicHistory.clearCache();
     $scope.pills = []
     $scope.pill = {}
     $rootScope.detail_pill = {};
@@ -139,6 +140,7 @@ app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $statePar
         }
       });   
       console.log($rootScope.detail_pill);
+      $state.go('app.single');
     }
 
     $scope.addComment = function(pillId){
@@ -188,9 +190,11 @@ app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $statePar
 
 })
 
-app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $ionicPopup, $location, $state) {
+app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $ionicPopup, $location, $state, $ionicHistory) {
+
+    console.log($ionicHistory.viewHistory());
     $scope.datapill= $rootScope.detail_pill
-    console.log($scope.datapill);
+    //console.log($scope.datapill);
 
     $rootScope.historial = [];
 
@@ -234,6 +238,16 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
       //console.log("que pasa")
       ///$location.path("#/app/test/"+pillId);
       $state.go('app.test', {testId: pillId})
+    }
+
+    $scope.volverACursos = function(){
+      //console.log("que pasa")
+      ///$location.path("#/app/test/"+pillId);
+       $backView = $ionicHistory.backView();
+        $backView.go();
+      //$ionicHistory.backView();
+      $scope.selectedPill = '';
+      $rootScope.selectedPill = '';
     }
     
     //rating

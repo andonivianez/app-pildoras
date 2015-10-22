@@ -13,6 +13,11 @@
   background-color: #80b51b !important;
 }
 
+h1, h2{
+  color: #666666;
+}
+
+
 .login-avatar{
   background-color:#f2f2f2 !important;
   min-height: 1em !important;
@@ -68,13 +73,15 @@ ul.rating li i {
 }
 
 .course-title{
-    left: 4.5em;
+    left: 4.2em;
+    top: 0.3em;
     position: relative;
+    font-size: 19px !important;
 }
 
 .course-date{
-    left: 5.1em;
-    top: 0.5em;
+    left: 5.7em;
+    top: 1.3em;
     position: relative;
 }
 
@@ -83,8 +90,9 @@ ul.rating li i {
 }
 
 .data-row{
-  position: relative !important;
-  left: 4.5em !important;
+    position: relative !important;
+    left: 4.8em !important;
+    top: 0.9em;
 }
 
 #thumbnail-label{
@@ -269,6 +277,8 @@ ul.rating li i {
   right: 0.2em;
   top: 0.25em;
   position: relative;
+  color: red;
+  fill: currentColor;
 }
 
 .backgroundPopUpDownloadButtons{
@@ -283,3 +293,9 @@ ul.rating li i {
   margin-left: auto !important;
 }
 
+
+/* Settings section  */
+
+.avisoLegalTitle{
+  color: #80b51b !important;
+}

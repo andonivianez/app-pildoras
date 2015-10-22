@@ -57,7 +57,7 @@ angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ng
       views: {
         'menuContent': {
           templateUrl: 'templates/ajustes/ajustes.html',
-          controller: 'SettingsCtrl'
+          controller: 'SettingsCtrl',
         }
       }
     })
@@ -67,7 +67,7 @@ angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ng
         'menuContent': {
           templateUrl: 'templates/courses.html',
           controller: 'CoursesCtrl',
-          cache: true
+          cache: false
         }
       }
     })
@@ -80,7 +80,63 @@ angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ng
         controller: 'CourseCtrl'
       }
     }
-  });
+  })
+
+   .state('app.acercade', {
+    url: '/acercade',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/ajustes/acercade.html',
+        controller: 'SettingsCtrl',
+        cache: false
+      }
+    }
+  })
+  .state('app.avisolegal', {
+    url: '/avisolegal',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/ajustes/avisolegal.html',
+        controller: 'SettingsCtrl',
+        cache: false
+      }
+    }
+  })
+
+  .state('app.contacto', {
+    url: '/contacto',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/ajustes/contacto.html',
+        controller: 'SettingsCtrl',
+        cache: false
+      }
+    }
+  })
+
+  .state('app.idioma', {
+    url: '/idioma',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/ajustes/idioma.html',
+        controller: 'SettingsCtrl',
+        cache: false
+      }
+    }
+  })
+
+  .state('app.notificaciones', {
+    url: '/notificaciones',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/ajustes/notificaciones.html',
+        controller: 'SettingsCtrl',
+        cache: false
+      }
+    }
+  })
+
+  ;
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/courses');
 
