@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ngCordova', 'starter.controllers', 'ionic-material', 'ionic.rating', 'jett.ionic.filter.bar', 'ionMdInput', 'ionic-cache-src'])
+angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ngCordova', 'starter.controllers', 'ionic-material', 'ionic.rating', 'jett.ionic.filter.bar', 'ionMdInput', 'ionic-cache-src',])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -20,9 +20,10 @@ angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ng
       StatusBar.styleDefault();
     }
   });
+
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider) {
   $stateProvider
 
     .state('app', {
@@ -44,22 +45,14 @@ angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ng
 
   .state('app.test', {
     url: '/test/:testId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/test.html',
-        controller: 'TestCtrl'
-      }
-    }
+    templateUrl: 'templates/test.html',
+    controller: 'TestCtrl'
   })
 
   .state('app.settings', {
       url: '/settings',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/ajustes/ajustes.html',
-          controller: 'SettingsCtrl',
-        }
-      }
+      templateUrl: 'templates/ajustes/ajustes.html',
+      controller: 'SettingsCtrl'
     })
     .state('app.courses', {
       url: '/courses',
@@ -72,68 +65,45 @@ angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ng
       }
     })
 
-  .state('app.single', {
-    url: '/courses/:courseId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/course.html',
-        controller: 'CourseCtrl'
-      }
-    }
+  .state('single', {
+    url: '/single',
+    templateUrl: 'templates/course.html',
+    controller: 'CourseCtrl',
+    cache: false
   })
 
    .state('app.acercade', {
     url: '/acercade',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/ajustes/acercade.html',
-        controller: 'SettingsCtrl',
-        cache: false
-      }
-    }
+    templateUrl: 'templates/ajustes/acercade.html',
+    controller: 'SettingsCtrl',
+    cache: false
   })
   .state('app.avisolegal', {
     url: '/avisolegal',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/ajustes/avisolegal.html',
-        controller: 'SettingsCtrl',
-        cache: false
-      }
-    }
+    templateUrl: 'templates/ajustes/avisolegal.html',
+    controller: 'SettingsCtrl',
+    cache: false
   })
 
   .state('app.contacto', {
     url: '/contacto',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/ajustes/contacto.html',
-        controller: 'SettingsCtrl',
-        cache: false
-      }
-    }
+    templateUrl: 'templates/ajustes/contacto.html',
+    controller: 'SettingsCtrl',
+    cache: false
   })
 
   .state('app.idioma', {
     url: '/idioma',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/ajustes/idioma.html',
-        controller: 'SettingsCtrl',
-        cache: false
-      }
-    }
+    templateUrl: 'templates/ajustes/idioma.html',
+    controller: 'SettingsCtrl',
+    cache: false
   })
 
   .state('app.notificaciones', {
     url: '/notificaciones',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/ajustes/notificaciones.html',
-        controller: 'SettingsCtrl',
-        cache: false
-      }
-    }
+    templateUrl: 'templates/ajustes/notificaciones.html',
+    controller: 'SettingsCtrl',
+    cache: false
   })
 
   ;
@@ -141,5 +111,11 @@ angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ng
   $urlRouterProvider.otherwise('/app/courses');
 
   $ionicConfigProvider.navBar.alignTitle('center');
-  $ionicConfigProvider.views.transition("none");
+  //$ionicConfigProvider.views.transition("none");
+   $httpProvider.defaults.headers.post = { 'Content-Type' : 'application/json' };
+   $httpProvider.defaults.withCredentials = true;
+   $httpProvider.interceptors.push('authInterceptor');
+
+
 });
+

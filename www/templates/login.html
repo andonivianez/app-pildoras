@@ -14,16 +14,16 @@
   </div> !-->
 
       <ion-content>
-        <form ng-submit="doLogin()">
+        <form ng-submit="submit()">
           <div class="hero no-header flat">
             <img class="login-logo" ng-src="img/svg/logo.svg">
           </div>
           <div class="list">
-              <ion-md-input ng-model="loginData.username" placeholder="Nombre de usuario" highlight-color="balanced" type="text"></ion-md-input>
-              <ion-md-input ng-model="loginData.password" placeholder="Contraseña" highlight-color="balanced" type="password"></ion-md-input>
+              <ion-md-input ng-model="loginData._username" placeholder="Nombre de usuario" highlight-color="balanced" type="text"></ion-md-input>
+              <ion-md-input ng-model="loginData._password" placeholder="Contraseña" highlight-color="balanced" type="password"></ion-md-input>
           </div>
           <div class="padding">
-              <button class="button button-full button-balanced ink" type="submit">Login</button>
+              <button class="button button-full button-balanced ink">Login</button>
               <h4 style="text-align:center;" class="balanced">Necesito ayuda para acceder</h4>
           </div>
         </form>

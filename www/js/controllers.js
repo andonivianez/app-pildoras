@@ -1,6 +1,6 @@
 var app = angular.module('starter.controllers', [])
 
-app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $localstorage, $ionicLoading, LoginService) {
+app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $localstorage, $ionicLoading, LoginService, $window, $http) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -8,61 +8,74 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $
   // listen for the $ionicView.enter event:
   $scope.$on('$ionicView.enter', function(e) {
     //$scope.login();
+    /*
     $localstorage.setObject('login', {
       username: 'Thoughts',
       password: 'Today was a good day'
-    });
+    }); */
     //console.log($localstorage.get('name'));
+  
+
+    // Form data for the login modal
+    $scope.loginData = {};
+
+    // Create the login modal that we will use later
+    $ionicModal.fromTemplateUrl('templates/login.html', {
+      scope: $scope
+    }).then(function(modal) {
+      $scope.modal = modal;
+      $scope.modal.show();
+    });
   });
-
-  // Form data for the login modal
-  $scope.loginData = {};
-
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
     $scope.modal.hide();
   };
 
   // Open the login modal
-  $scope.login = function() {
+ /* $scope.login = function() {
     $scope.modal.show();
-  };
+  };*/
 
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
-      $scope.loginData = {};
+      console.log($scope.loginData);
       $ionicLoading.show({
         template: 'Intentado conectar...'
       });
 
-      LoginService.loginUser($scope.loginData.username, $scope.loginData.password).success(function(data) {
-        //si la cosa va bien...
-          //$state.go('tab.dash');
-          console.log(data)
-          $ionicLoading.hide();
-          var alertPopup = $ionicPopup.alert(data);
-          
-      }).error(function(data) {
-        //si no...
-         /* var alertPopupFail = $ionicPopup.alert({
-              title: 'Login failed!',
-              template: 'Please check your credentials!'
-          });*/
-        var alertPopupLog = $ionicPopup.alert(data);
-        $ionicLoading.hide();
-      });
+     // LoginService.getToken($scope.loginData);
       $timeout(function() {
           //$scope.closeLogin();
         $ionicLoading.hide();
       }, 5000);
   };
+
+
+  $scope.submit = function () {
+      $scope.user = {_username: 'aezponda@tak.es', _password: 't3st'};
+      $scope.message = '';
+      delete $http.defaults.headers.common['X-Requested-With'];
+    $http
+      .post('http://app-pildoras.tak.es/app_dev.php/api/login_check', $scope.user)
+      .success(function (data, status, headers, config) {
+        $window.sessionStorage.token = data.token;
+        $scope.message = 'Welcome';
+        alert("Este es el token"+data.token);
+      })
+      .error(function (data, status, headers, config) {
+        // Erase the token if the user fails to log in
+        delete $window.sessionStorage.token;
+        alert("Algo ha ido mal");
+        // Handle login errors here
+        $scope.message = 'Error: Invalid user or password';
+      });
+  };
+
+
+
+
+
 
   //cargamos las categorias en el menú
   $scope.getCategories = function(){
@@ -140,7 +153,7 @@ app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $statePar
         }
       });   
       console.log($rootScope.detail_pill);
-      $state.go('app.single');
+      $state.go('single');
     }
 
     $scope.addComment = function(pillId){
@@ -192,7 +205,7 @@ app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $statePar
 
 app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $ionicPopup, $location, $state, $ionicHistory) {
 
-    console.log($ionicHistory.viewHistory());
+   // console.log($ionicHistory.viewHistory());
     $scope.datapill= $rootScope.detail_pill
     //console.log($scope.datapill);
 
@@ -206,11 +219,6 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
     $scope.clipSrc = $sce.trustAsResourceUrl($scope.datapill[$scope.selectedPill].translations.es.video_url);
     $scope.myPreviewImageSrc = $scope.datapill[$scope.selectedPill].translations.es.image_url;
     $scope.resource_size = $scope.datapill[$scope.selectedPill].translations.es.resource_size;
-    //end videoplayer params
-    $scope.video = function() {
-        var videoElements = angular.element(document.querySelector('#player'));
-        videoElements[0].pause();
-    }
 
     $scope.backgroundDownload = function(){ //está la info en marcadores
       var confirmPopup = $ionicPopup.confirm({
@@ -331,14 +339,15 @@ app.service('LoginService', function($q, $http) {
     }
 })
 
-app.service('SendDataService', function($q, $http) {
-    return {
-        sendComment: function(pillId, userId, comment) {
-            var commenter = $q.defer();
-            var promise = commenter.promise;
-            $http.post("http://app-pildoras.tak.es/app_dev.php/api/login_check", {_username: name, _password: pw}).then(function(response) {
+app.factory('LoginService',['$http',function($http, $q){
+
+     return {
+        getToken:function(datalogin){
+           var taklogin = $q.defer();
+            var promise = taklogin.promise;
+            $http.post("http://app-pildoras.tak.es/app_dev.php/api/login_check", {_username: datalogin._username, _password: datalogin._password}).then(function(response) {
               console.log("Respuesta del backend"+response.data)
-                commenter.resolve(response.data);
+                taklogin.resolve(response.data);
             });
             //taklogin.reject('Wrong credentials.');
 
@@ -351,11 +360,78 @@ app.service('SendDataService', function($q, $http) {
                 return promise;
             }
             return promise;
-        }
+        },
+
+   /*     getAll:function(){
+          $http.get('https://api.parse.com/1/classes/Todo',{
+                headers:{
+                    'X-Parse-Application-Id': PARSE_CREDENTIALS.APP_ID,
+                    'X-Parse-REST-API-Key':PARSE_CREDENTIALS.REST_API_KEY,
+                }
+            });
+        },
+        get:function(id){
+            return $http.get('https://api.parse.com/1/classes/Todo/'+id,{
+                headers:{
+                    'X-Parse-Application-Id': PARSE_CREDENTIALS.APP_ID,
+                    'X-Parse-REST-API-Key':PARSE_CREDENTIALS.REST_API_KEY,
+                }
+            });
+        },
+        create:function(data){
+            return $http.post('https://api.parse.com/1/classes/Todo',data,{
+                headers:{
+                    'X-Parse-Application-Id': PARSE_CREDENTIALS.APP_ID,
+                    'X-Parse-REST-API-Key':PARSE_CREDENTIALS.REST_API_KEY,
+                    'Content-Type':'application/json'
+                }
+            });
+        },
+        edit:function(id,data){
+            return $http.put('https://api.parse.com/1/classes/Todo/'+id,data,{
+                headers:{
+                    'X-Parse-Application-Id': PARSE_CREDENTIALS.APP_ID,
+                    'X-Parse-REST-API-Key':PARSE_CREDENTIALS.REST_API_KEY,
+                    'Content-Type':'application/json'
+                }
+            });
+        },
+        delete:function(id){
+            return $http.delete('https://api.parse.com/1/classes/Todo/'+id,{
+                headers:{
+                    'X-Parse-Application-Id': PARSE_CREDENTIALS.APP_ID,
+                    'X-Parse-REST-API-Key':PARSE_CREDENTIALS.REST_API_KEY,
+                    'Content-Type':'application/json'
+                }
+            });
+        }*/
     }
-})
+}]);
 
 
+app.factory('authInterceptor', function ($rootScope, $q, $window) {
+  return {
+    request: function (config) {
+      config.headers = config.headers || {};
+      if ($window.sessionStorage.token) {
+        config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+      }
+      return config;
+    },
+    response: function (response) {
+      if (response.status === 401) {
+        // handle the case where the user is not authenticated
+      }
+      return response || $q.when(response);
+    }
+  };
+});
+
+
+
+
+
+/* LocalStorage */
 app.factory('$localstorage', ['$window', function($window) {
   return {
     set: function(key, value) {
