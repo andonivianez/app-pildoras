@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ngCordova', 'starter.controllers', 'ionic-material', 'ionic.rating', 'jett.ionic.filter.bar', 'ionMdInput', 'ionic-cache-src',])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $localstorage) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -19,6 +19,7 @@ angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ng
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+    $localstorage.setObject('pills', {});
   });
 
 })
@@ -32,6 +33,13 @@ angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ng
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
   })
+
+  .state('loading', {
+    url: '/loading',
+        templateUrl: 'templates/loading.html',
+        controller: 'AppCtrl'
+  })
+
 
   .state('app.search', {
     url: '/search',
@@ -49,11 +57,13 @@ angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ng
     controller: 'TestCtrl'
   })
 
-  .state('app.settings', {
-      url: '/settings',
-      templateUrl: 'templates/ajustes/ajustes.html',
-      controller: 'SettingsCtrl'
-    })
+  .state('settings', {
+    url: '/settings',
+        templateUrl: 'templates/ajustes/ajustes.html',
+        controller: 'SettingsCtrl'
+  })
+
+
     .state('app.courses', {
       url: '/courses',
       views: {
@@ -72,43 +82,37 @@ angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ng
     cache: false
   })
 
-   .state('app.acercade', {
+   .state('acercade', {
     url: '/acercade',
     templateUrl: 'templates/ajustes/acercade.html',
-    controller: 'SettingsCtrl',
-    cache: false
+    controller: 'SettingsCtrl'
   })
-  .state('app.avisolegal', {
+   
+  .state('avisolegal', {
     url: '/avisolegal',
     templateUrl: 'templates/ajustes/avisolegal.html',
-    controller: 'SettingsCtrl',
-    cache: false
+    controller: 'SettingsCtrl'
   })
 
-  .state('app.contacto', {
+  .state('contacto', {
     url: '/contacto',
     templateUrl: 'templates/ajustes/contacto.html',
-    controller: 'SettingsCtrl',
-    cache: false
+    controller: 'SettingsCtrl'
   })
 
-  .state('app.idioma', {
+  .state('idioma', {
     url: '/idioma',
     templateUrl: 'templates/ajustes/idioma.html',
-    controller: 'SettingsCtrl',
-    cache: false
+    controller: 'SettingsCtrl'
   })
 
-  .state('app.notificaciones', {
+  .state('notificaciones', {
     url: '/notificaciones',
-    templateUrl: 'templates/ajustes/notificaciones.html',
-    controller: 'SettingsCtrl',
-    cache: false
-  })
-
-  ;
+      templateUrl: 'templates/ajustes/notificaciones.html',
+      controller: 'SettingsCtrl'
+  });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/courses');
+  $urlRouterProvider.otherwise('loading');
 
   $ionicConfigProvider.navBar.alignTitle('center');
   //$ionicConfigProvider.views.transition("none");

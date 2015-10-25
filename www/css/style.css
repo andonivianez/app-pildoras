@@ -13,6 +13,11 @@
   background-color: #80b51b !important;
 }
 
+.spinner-balanced svg{
+    stroke: #80b51b !important;
+    fill: #80b51b !important;
+}
+
 h1, h2{
   color: #666666;
 }
@@ -33,6 +38,10 @@ h1, h2{
 
 .page_background_color{
   background-color: #f2f2f2 !important;
+}
+
+.blank_background_color{
+  background-color: #ffffff !important;
 }
 
 body{
@@ -139,13 +148,19 @@ ul.rating li i {
 
 .pill-back{
   top: 1em !important;
+  width: 30px !important;
+  height: 30px !important;
 }
 
 .test-block{
-  color: #80b51b;
-  background-color: white;
-  padding: 0.5em;
-  border: 1px solid;
+    color: #80b51b;
+    background-color: white;
+    padding: 0.5em;
+    border: 1px solid;
+    border-radius: 4px;
+    width: 91.2%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .test-number{
@@ -157,15 +172,19 @@ ul.rating li i {
 .detailPill-title, .detailPill-descripcion, .detailPill-descripcion-text, .detailPill-comentarios{
   color:#666666;
   margin-bottom: inherit !important;
+  font-size: 6vw;
 }
 
 .detailPill-descripcion-text{
-  padding: 0.2em;
+    padding-left: 2.2vw;
+    font-size: 4.5vw;
+    font-family: Roboto light;
 }
 
 .detailPill-comentarios-insert{
   color: #80b51b;
   border-bottom: 1px solid #838383;
+  font-size: 4.5vw;
 }
 
 .detailPill-disponibleOffline{
@@ -177,6 +196,13 @@ ul.rating li i {
   margin: inherit !important;
   color: #999999;
   letter-spacing: 0.05em;
+  font-size: 4vw;
+}
+
+.detailPill-responsive-block-adjust{
+  margin-left: auto !important;
+  margin-right: auto;
+  width: 96.5%;
 }
 
 .popup{
@@ -272,7 +298,7 @@ ul.rating li i {
 
 
 /*  Background download    */
-.backgroundPopUpDownloadIcon{
+.backgroundPopUpDownloadIcon svg{
   width: 100%;
   right: 0.2em;
   top: 0.25em;

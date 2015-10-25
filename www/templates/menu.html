@@ -28,9 +28,9 @@
             </ion-item>
         </div>
 
-          <ion-item class="item" menu-close ng-click="login()">
+         <!-- <ion-item class="item" menu-close ng-click="login()">
             [DEV]Login
-          </ion-item>
+          </ion-item> -->
           <div class="bottomFixedMenuList">
             <ion-item class="item item-icon-left" menu-close >
               <i class="icon ion-ios-clock-outline"></i> Ver más tarde
@@ -43,7 +43,7 @@
               <i class="icon ion-android-time"></i>
                 Historial
             </ion-item>
-            <ion-item menu-close class="item item-icon-left" href="#/app/settings">
+            <ion-item menu-close ng-controller="CoursesCtrl" class="item item-icon-left" ng-click="ajustes()">
               <i class="icon ion-android-settings"></i>
               Configuración
             </ion-item>

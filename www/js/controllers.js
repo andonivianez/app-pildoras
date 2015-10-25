@@ -1,100 +1,81 @@
 var app = angular.module('starter.controllers', [])
 
-app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $localstorage, $ionicLoading, LoginService, $window, $http) {
+app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $localstorage, $ionicLoading, LoginService, $state, $rootScope, $http) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
   // listen for the $ionicView.enter event:
+      $ionicModal.fromTemplateUrl('templates/login.html', {
+        scope: $scope
+      }).then(function(modal) {
+        $scope.modal = modal;
+      });
+
   $scope.$on('$ionicView.enter', function(e) {
-    //$scope.login();
-    /*
-    $localstorage.setObject('login', {
-      username: 'Thoughts',
-      password: 'Today was a good day'
-    }); */
-    //console.log($localstorage.get('name'));
-  
+//hay que hacer que la primera vez, guarde en localstorage los datos del usuario, y que cada vez que entre renueve el token.
 
-    // Form data for the login modal
-    $scope.loginData = {};
-
-    // Create the login modal that we will use later
-    $ionicModal.fromTemplateUrl('templates/login.html', {
-      scope: $scope
-    }).then(function(modal) {
-      $scope.modal = modal;
+    if(Object.keys($localstorage.getObject('login')).length == 0){ //si no hay datos de login le lanzamos desde 0
+      // Form data for the login modal
+      $scope.loginData = {};
+      //console.log($scope.modal);
       $scope.modal.show();
-    });
+    }else if(Object.keys($localstorage.getObject('pills')).length == 0){ //si hay datos de login, vamos a por el token
+      //si ya tenemos datos de login... pero el token debe ser renovado siempre.
+      var ctoken = $localstorage.getObject('token');
+      //console.log(ctoken);
+      $scope.loginData = $localstorage.getObject('login');
+      $scope.continueToCourses(ctoken);
+    }else{
+      //si ya estoy dentro no hago nada
+    }
   });
+
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
     $scope.modal.hide();
   };
 
-  // Open the login modal
- /* $scope.login = function() {
-    $scope.modal.show();
-  };*/
-
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-      console.log($scope.loginData);
-      $ionicLoading.show({
-        template: 'Intentado conectar...'
-      });
-
-     // LoginService.getToken($scope.loginData);
-      $timeout(function() {
-          //$scope.closeLogin();
-        $ionicLoading.hide();
-      }, 5000);
-  };
-
-
   $scope.submit = function () {
-      $scope.user = {_username: 'aezponda@tak.es', _password: 't3st'};
-      $scope.message = '';
+    $scope.modal.hide();
+    $localstorage.setObject('login', $scope.loginData);
+    var user = {_username: $scope.loginData.username, _password: $scope.loginData.password};
+      var responsedata;
       delete $http.defaults.headers.common['X-Requested-With'];
     $http
-      .post('http://app-pildoras.tak.es/app_dev.php/api/login_check', $scope.user)
-      .success(function (data, status, headers, config) {
-        $window.sessionStorage.token = data.token;
-        $scope.message = 'Welcome';
-        alert("Este es el token"+data.token);
+      .post('http://app-pildoras.tak.es/app_dev.php/api/login_check', user)
+      .success(function (data) {
+        responsedata = data;
+        console.log(responsedata);
+        $scope.continueToCourses(responsedata);
       })
-      .error(function (data, status, headers, config) {
+      .error(function (data) {
         // Erase the token if the user fails to log in
-        delete $window.sessionStorage.token;
-        alert("Algo ha ido mal");
-        // Handle login errors here
-        $scope.message = 'Error: Invalid user or password';
+        //delete $window.sessionStorage.token;
+        console.log("Algo ha ido mal: "+data);            
       });
   };
 
-
-
-
-
-
-  //cargamos las categorias en el menú
-  $scope.getCategories = function(){
-    $scope.categories = courseData.categories();
-    console.log($scope.categories);
+  $scope.continueToCourses = function(token){
+    $timeout(function() {
+          //si consigue el token cerramos y le llevamos a la página principal.
+        if(!angular.isUndefined(token)){
+          $localstorage.setObject('token', token);
+          console.log("Hola estoy aquí ");
+          //alert("Aquí lo tienes crack!: "+token.token);
+          //si tenemos token, habría que lanzar la carga de píldoras primero antes de ir a la página principal
+          $state.go('app.courses');
+        }else{
+          alert("Usuario/contraseña incorrectos");
+          $scope.modal.show();
+        }
+      }, 3000);
   }
-  
-  $scope.orderCourses = function(){
-    //console.log(courseData.order)
-    if (courseData.reverse() == true){
-      courseData.sort(false)
-    }else{
-      courseData.sort(true)
-    }
-    //order = courseData.order;
-  }
+
+
 
     // A confirm dialog
-     $scope.logout = function() {
+     $scope.logout = function() {//esto falta poner popup de los buenos
        var confirmPopup = $ionicPopup.confirm({
          title: 'Desconexión del usuario',
          template: '¿Estás seguro de que deseas desconectar al usuario?'
@@ -113,13 +94,22 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $
 
 })
 
-app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $stateParams, $ionicPopup, $rootScope, $ionicPopover, $ionicHistory, $state) {
+app.controller('CoursesCtrl', function($http,$scope, $sce, $stateParams, $ionicPopup, $rootScope, $ionicPopover, $ionicHistory, $state, LoginService, $localstorage, $ionicModal) {
     $ionicHistory.clearHistory();
     $ionicHistory.clearCache();
     $scope.pills = []
     $scope.pill = {}
     $rootScope.detail_pill = {};
     $rootScope.categories = [];
+
+
+
+    $scope.offlineChange = function() {
+      console.log('Push Notification Change', $scope.offline.checked);
+    };
+
+    //esto es para fijarlo
+    $scope.offline = { checked: false };
     
     //Get each pill data
     $scope.getEachPill = function(pillList){
@@ -135,12 +125,25 @@ app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $statePar
     }
 
     $scope.loadCourses = function(){
-        DataService.getPillCourses().then(function(response){
-            $scope.pills = response.pills;
-            $scope.$broadcast('scroll.refreshComplete');
-            $scope.getEachPill($scope.pills);
 
-        });
+        var ctoken = $localstorage.getObject('token');
+        var token = "Bearer "+ctoken.token;
+        //console.log(token);
+        delete $http.defaults.headers.common['X-Requested-With'];
+        $http
+          .get('http://app-pildoras.tak.es/app_dev.php/api/pills.json',{
+              headers:{
+                  'Authorization': token,
+              }
+          }).success(function (data) {
+                //console.log(data.pills);
+                $localstorage.setObject('pills', data.pills);
+                $scope.pills = $localstorage.getObject('pills');
+                //console.log($scope.pills);
+                $scope.$broadcast('scroll.refreshComplete');
+                $scope.getEachPill($scope.pills);
+              });
+          console.log("Actualizo Pills");
     }; 
 
 
@@ -156,23 +159,22 @@ app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $statePar
       $state.go('single');
     }
 
-    $scope.addComment = function(pillId){
-       $ionicPopup.prompt({
-         title: 'Introduce tu comentario',
-         //template: 'Escribe aquí',
-         //inputType: 'password',
-         inputPlaceholder: 'Escribe aquí'
-       }).then(function(res) {
-         console.log('Your password is', res);
-       });
+
+    $scope.ajustes = function(){
+      $state.go('settings');
     }
 
-    $scope.$on('$ionicView.enter', function(e) {
+
+
+
+
+
+    //nada más entrar en la pantalla...
+    $scope.$on('$ionicView.beforeEnter', function(e) {
         $scope.loadCourses();
     });
 
     //estrellas
-    $scope.rate = 3;
     $scope.max = 5;
 
     /*PopOver*/
@@ -190,20 +192,13 @@ app.controller('CoursesCtrl', function($http,$scope,DataService, $sce, $statePar
     $scope.closePopover = function() {
       $scope.popover.hide();
     };
-    // Execute action on hide popover
-    $scope.$on('popover.hidden', function() {
-      // Execute action
-    });
-    // Execute action on remove popover
-    $scope.$on('popover.removed', function() {
-      // Execute action
-    });
+
 
     $scope.readOnly = true;
 
 })
 
-app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $ionicPopup, $location, $state, $ionicHistory) {
+app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $ionicPopup, $location, $state, $ionicHistory, $ionicModal) {
 
    // console.log($ionicHistory.viewHistory());
     $scope.datapill= $rootScope.detail_pill
@@ -241,6 +236,37 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
         }
       });
     }
+
+    $scope.addComment = function(pillId){
+       $ionicPopup.prompt({
+         title: 'Introduce tu comentario',
+         //template: 'Escribe aquí',
+         //inputType: 'password',
+         inputPlaceholder: 'Escribe aquí'
+       }).then(function(res) {
+         console.log('Your password is', res);
+       });
+    }
+
+    ////////CREAMOS LAS MODALES PARA EL HISTORIAL Y EL VER MÁS TARDE/////////////
+    $ionicModal.fromTemplateUrl('templates/historial.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.historyModal = modal;
+    });
+
+
+    $scope.historyModalOpen = function(){
+     // $state.go('settings');
+      $scope.historyModal.show();
+    }
+
+    $scope.laterModal = function(){
+      //$state.go('settings');
+    }
+
+
 
     $scope.startTest = function(pillId){
       //console.log("que pasa")
@@ -302,74 +328,41 @@ app.controller('SettingsCtrl', function($scope, $stateParams, $ionicHistory) {
 });
 
 /*Services*/
+/*
+app.service('DataService', function($http, $q, $localstorage) {
+  var pillCourses = $q.defer(); //hay que hacer que llame al del otro service, y ver lo que tarda en cargar todas las pills. Si eso que pille con then. y un if
 
-app.service('DataService', function($http, $q) {
-  var pillCourses = $q.defer();
+    $http.get('http://app-pildoras.tak.es/app_dev.php/api/pills.json',  
+      headers{
+        "Bearer"+
 
-    $http.get('data/response.json').then(function(response) {
+    }).then(function(response) {
         pillCourses.resolve(response.data);
     });
 
     this.getPillCourses = function() {
         return pillCourses.promise;
     };
-});
+});*/
 
-app.service('LoginService', function($q, $http) {
-    return {
-        loginUser: function(name, pw) {
-            var taklogin = $q.defer();
-            var promise = taklogin.promise;
-            $http.post("http://app-pildoras.tak.es/app_dev.php/api/login_check", {_username: name, _password: pw}).then(function(response) {
-              console.log("Respuesta del backend"+response.data)
-                taklogin.resolve(response.data);
-            });
-            //taklogin.reject('Wrong credentials.');
 
-            promise.success = function(fn) {
-                promise.then(fn);
-                return promise;
-            }
-            promise.error = function(fn) {
-                promise.then(null, fn);
-                return promise;
-            }
-            return promise;
-        }
-    }
-})
-
-app.factory('LoginService',['$http',function($http, $q){
+app.factory('LoginService',['$http',function($http){
 
      return {
-        getToken:function(datalogin){
-           var taklogin = $q.defer();
-            var promise = taklogin.promise;
-            $http.post("http://app-pildoras.tak.es/app_dev.php/api/login_check", {_username: datalogin._username, _password: datalogin._password}).then(function(response) {
-              console.log("Respuesta del backend"+response.data)
-                taklogin.resolve(response.data);
-            });
-            //taklogin.reject('Wrong credentials.');
-
-            promise.success = function(fn) {
-                promise.then(fn);
-                return promise;
-            }
-            promise.error = function(fn) {
-                promise.then(null, fn);
-                return promise;
-            }
-            return promise;
-        },
-
-   /*     getAll:function(){
-          $http.get('https://api.parse.com/1/classes/Todo',{
+       getAllPills:function(receivedToken){
+        var token = "Bearer"+receivedToken.token;
+        console.log(token);
+        delete $http.defaults.headers.common['X-Requested-With'];
+        console.log(token);
+          $http
+            .get('http://app-pildoras.tak.es/app_dev.php/api/pills.json',{
                 headers:{
-                    'X-Parse-Application-Id': PARSE_CREDENTIALS.APP_ID,
-                    'X-Parse-REST-API-Key':PARSE_CREDENTIALS.REST_API_KEY,
+                    'Authorization': token,
                 }
-            });
-        },
+            }).success(function (data) {
+                console.log(data);
+            })
+        }/* ,
         get:function(id){
             return $http.get('https://api.parse.com/1/classes/Todo/'+id,{
                 headers:{
@@ -426,9 +419,6 @@ app.factory('authInterceptor', function ($rootScope, $q, $window) {
     }
   };
 });
-
-
-
 
 
 /* LocalStorage */

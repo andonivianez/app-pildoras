@@ -1,14 +1,10 @@
-<!--<ion-header-bar align-title="center" class="bar-balanced">
+<ion-header-bar align-title="center" class="bar-balanced">
   <div class="buttons">
     <button ng-click="volverACursos()" class="button button-icon button-clear ion-android-arrow-back"></button>
   </div>
   <h1 class="title">{{datapill[selectedPill].translations.es.title}}</h1>
-</ion-header-bar>
-<ion-view style="-webkit-transform: translateZ(0);">-->
-
-
-
-
+</ion-header-bar>-->
+<ion-view style="-webkit-transform: translateZ(0);">
   <ion-content id="detalle_pildora" overflow-scroll="true">
 	<a href="#/app/courses">
 		<button class="button button-fab button-fab-bottom-left button-balanced icon ion-ios-arrow-back waves-effect waves-button waves-light pill-back"></button>
@@ -20,7 +16,7 @@
 	-->
 	<videoplayer></videoplayer>
 	
-    <div class="row responsive-sm detailPill-responsive-block-adjust">
+    <div class="row responsive-sm">
 	    <h2 class="col detailPill-title">{{datapill[selectedPill].translations.es.title}}</h2>
 	    <h4 class="col dataPill-authorData"><b>{{datapill[selectedPill].author}}</b> | {{datapill[selectedPill].date_start| date:" yyyy · MM · dd"}}</h4>
     </div>
@@ -32,26 +28,36 @@
 		</div>
 	</div>
 
-	<div class="list pill-options">
-        <ion-toggle ng-model="offline.checked"
-                    ng-change="offlineChange()">
-			<i class="icon ion-pin"></i>
-           Disponible sin conexión
-        </ion-toggle>
+	<ul class="list pill-options">
+	  <li class="item item-toggle detailPill-disponibleOffline">
+	     <span><i class="icon ion-pin"></i>  Disponible sin conexión</span>
+	     <label class="toggle toggle-balanced" ng-click="backgroundDownload()" ng-model="backgroundDownloadToogle">
+	       <input type="checkbox">
+	       <div class="track">
+	         <div class="handle"></div>
+	       </div>
+	     </label>
+	  </li>
 
-        <ion-toggle ng-model="later.checked"
-                    ng-change="laterChange()">
-        	<i class="icon ion-eye"></i>
-           Ver más tarde
-        </ion-toggle>
-	 </div>
+	  <li class="item item-toggle">
+	   <span><i class="icon ion-eye"></i>  Ver más tarde</span>
+	   <label class="toggle toggle-balanced">
+	     <input type="checkbox">
+	     <div class="track">
+	       <div class="handle"></div>
+	     </div>
+	   </label>
+	  </li>
+	 </ul>
 
-	<div class="row responsive-sm detailPill-responsive-block-adjust">
+	<div class="row responsive-sm">
 		<h2 class="col detailPill-descripcion">Descripción</h2>
-		  <div class="col detailPill-descripcion-text">{{datapill[selectedPill].translations.es.description}}</div>
+		  <div class="col detailPill-descripcion-text">{{datapill[selectedPill].translations.es.description}}
+			</div>
 	</div>
 
-	<div class="row responsive-sm detailPill-responsive-block-adjust">
+
+	<div class="row responsive-sm">
 		<h2 class="col detailPill-comentarios">Comentarios</h2>
 		<h4 class="col detailPill-comentarios-insert" ng-click="addComment()">Escribe aquí tu comentario</h4>
 		
