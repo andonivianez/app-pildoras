@@ -13,6 +13,16 @@
   background-color: #80b51b !important;
 }
 
+.spinner-balanced svg{
+    stroke: #80b51b !important;
+    fill: #80b51b !important;
+}
+
+h1, h2{
+  color: #666666;
+}
+
+
 .login-avatar{
   background-color:#f2f2f2 !important;
   min-height: 1em !important;
@@ -30,7 +40,13 @@
   background-color: #f2f2f2 !important;
 }
 
+.blank_background_color{
+  background-color: #ffffff !important;
+}
 
+body{
+  font-family: "Roboto regular" !important;
+}
 
 .fa-circle{
   color: white;
@@ -53,6 +69,10 @@
 
 }
 
+.menuListElements{
+  font-size: 5vw;
+}
+
 ul.rating li {
   display: inline;
   border: 0px;
@@ -66,13 +86,15 @@ ul.rating li i {
 }
 
 .course-title{
-    left: 4.5em;
+    left: 4.2em;
+    top: 0.3em;
     position: relative;
+    font-size: 19px !important;
 }
 
 .course-date{
-    left: 5.1em;
-    top: 0.5em;
+    left: 5.7em;
+    top: 1.3em;
     position: relative;
 }
 
@@ -81,8 +103,9 @@ ul.rating li i {
 }
 
 .data-row{
-  position: relative !important;
-  left: 4.5em !important;
+    position: relative !important;
+    left: 4.8em !important;
+    top: 0.9em;
 }
 
 #thumbnail-label{
@@ -129,33 +152,43 @@ ul.rating li i {
 
 .pill-back{
   top: 1em !important;
+  width: 30px !important;
+  height: 30px !important;
 }
 
 .test-block{
-  color: #80b51b;
-  background-color: white;
-  padding: 0.5em;
-  border: 1px solid;
+    color: #80b51b;
+    background-color: white;
+    padding: 0.5em;
+    border: 1px solid;
+    border-radius: 4px;
+    width: 91.2%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .test-number{
   text-align: center;
-  padding-right: 1.5em;
+  padding-right: 1em;
   border-left: 1px solid #80b51b;
 }
 
 .detailPill-title, .detailPill-descripcion, .detailPill-descripcion-text, .detailPill-comentarios{
   color:#666666;
   margin-bottom: inherit !important;
+  font-size: 6vw;
 }
 
 .detailPill-descripcion-text{
-  padding: 0.2em;
+    padding-left: 2.2vw;
+    font-size: 4.5vw;
+    font-family: Roboto light;
 }
 
 .detailPill-comentarios-insert{
   color: #80b51b;
   border-bottom: 1px solid #838383;
+  font-size: 4.5vw;
 }
 
 .detailPill-disponibleOffline{
@@ -167,6 +200,30 @@ ul.rating li i {
   margin: inherit !important;
   color: #999999;
   letter-spacing: 0.05em;
+  font-size: 4vw;
+}
+
+.detailPill-responsive-block-adjust{
+  margin-left: auto !important;
+  margin-right: auto;
+  width: 96.5%;
+}
+
+.popup{
+  width: 88% !important;
+  border-radius: 3px !important;
+  background-color: #fafafa !important;
+}
+
+.popup-buttons{
+  width: 16em !important;
+  right: 0 !important;
+  margin-left: auto !important;
+}
+
+.popup-head{ 
+  padding: 0.2em 10px;
+  border: none !important;
 }
 
 /*    Video    */
@@ -229,4 +286,56 @@ ul.rating li i {
 
 .test-center-img{
   width: 100%;
+}
+
+.testTitle{
+  color: #80b51b !important;
+  text-align: center;
+  font-size: 3em;
+  padding-top: 1em;
+}
+
+.testItems{
+  border: none !important;
+
+}
+
+
+/*  Background download    */
+.backgroundPopUpDownloadIcon svg{
+  width: 100%;
+  right: 0.2em;
+  top: 0.25em;
+  position: relative;
+  color: red;
+  fill: currentColor;
+}
+
+.backgroundPopUpDownloadButtons{
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #80b51b;
+  width: 64% !important;
+  margin: inherit !important;
+  padding: inherit !important;
+  padding-bottom: 0.5em !important;
+  margin-left: auto !important;
+}
+
+
+/* Settings section  */
+
+.avisoLegalTitle{
+  color: #80b51b !important;
+}
+
+
+
+.idiomas-text{
+  font-size: 4.5vw;
+}
+
+.idiomas-list{
+  border-bottom: 1px solid #d0cfd3 !important;
 }

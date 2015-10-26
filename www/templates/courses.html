@@ -1,11 +1,15 @@
-<ion-view view-title="TAK DEMO">  
+<ion-view style="-webkit-transform: translateZ(0);" view-title="TAK DEMO">  
   <ion-content>
     <ion-refresher on-refresh="loadCourses()"  pulling-text="Estira para actualizar..."
           refreshing-text="Actualizando!">      
     </ion-refresher>
+    <label class="item item-input">
+      <i class="icon ion-search placeholder-icon"></i>
+      <input type="search" placeholder="Buscar" ng-model="searchText">
+    </label>
     <div class="list">
-        <ion-item class="item-thumbnail-left" href="#/app/courses/{{selectedPill}}" ng-repeat="pill in pills | orderBy:pill.is_highlight:false" ng-if="pill.translations.es.image_url.indexOf('http') > -1" ng-click="getCourseById(pill.id)" ng-class="{'course-highlight': pill.is_highlight}">
-          <img ng-src="{{pill.translations.es.image_url}}" />
+        <ion-item nav-clear class="item-thumbnail-left" nav-transition="ios" ng-repeat="pill in pills | filter:searchText:title | orderBy:pill.is_highlight:false" ng-if="pill.translations.es.image_url.indexOf('http') > -1" ng-click="getCourseById(pill.id)" ng-class="{'course-highlight': pill.is_highlight}" >
+          <img ng-src="{{pill.translations.es.image_url}}"/>
        <!--   <i id="thumbnail-label" class="icon ion-ios-videocam balanced" ng-if="pill.translations.es.video_url == null"></i> !-->
           <span id="thumbnail-label" class="fa-stack fa-lg" ng-if="pill.translations.es.resource_url != 'null'">
             <i class="fa fa-circle fa-stack-2x"></i>
@@ -16,14 +20,13 @@
             <i class="fa fa-circle fa-stack-2x"></i>
             <i class="fa fa-video-camera fa-stack-1x positive"></i>
           </span>
-          <h2 class="course-title">{{pill.translations.es.title}}</h2>
+          <h2 class="course-title" ng-model="title">{{pill.translations.es.title}}</h2>
           <p class="course-date"><b>{{pill.author}}</b> | {{pill.date_start | date:" yyyy · MM · dd"}}</p>
           <div class="row data-row">
-            <div class="col"><rating ng-model="pill.stats.rating_value_avg" max="5"></rating></div>
+            <div class="col"><rating readonly="readOnly" ng-model="pill.stats.rating_value_avg" max="5"></rating></div>
           </div>
         </ion-item>
     </div>
   </ion-content>
-  <a href="#/app/search">
-  <button class="button button-fab button-fab-bottom-right button-balanced icon ion-search waves-effect waves-button waves-light"></button></a>
+  <button class="button button-fab button-fab-bottom-right button-balanced icon ion-search waves-effect waves-button waves-light"></button>
 </ion-view>
