@@ -1,6 +1,7 @@
-<ion-view hide-nav-bar="true" class="page_background_color">
-  <ion-content class="text-window">
-  <prevtest></prevtest>
-  <testing></testing>  	
+<ion-view hide-nav-bar="true" class="page_background_color testPage" scroll="false">
+  <ion-content ng-controller="TestCtrl" class="text-window">
+  <prevtest ng-if="process == 'prevtest'"></prevtest>
+  <testing ng-if="process == 'testing'"></testing>
+  <endtest ng-if="process == 'endtest'"></endtest>
   </ion-content>
 </ion-view>
