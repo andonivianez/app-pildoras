@@ -31,24 +31,24 @@
             [DEV]Login
           </ion-item> -->
           <div class="bottomFixedMenuList">
-            <ion-item ng-controller="CourseCtrl" class="item item-icon-left menuListElements" menu-close >
-              <i class="icon ion-eye"></i> Ver más tarde
+            <ion-item class="item item-icon-left menuListElements" menu-close >
+              <i class="icon ion-eye"></i> {{ 'VERMASTARDE' | translate }}
             </ion-item>
             <ion-item menu-close class="item item-icon-left menuListElements">
               <i class="icon ion-pin"></i>
-                Sin conexión
+                {{ 'SINCONEXION' | translate }}
             </ion-item>
-            <ion-item  menu-close class="item item-icon-left menuListElements">
+            <ion-item menu-close class="item item-icon-left menuListElements">
               <i class="icon ion-ios-clock"></i>
-                Historial
+                {{ 'HISTORIAL' | translate }}
             </ion-item>
             <ion-item menu-close ng-controller="CoursesCtrl" class="item item-icon-left menuListElements" ng-click="ajustes()">
               <i class="icon ion-android-settings"></i>
-              Configuración
+              {{ 'CONFIGURACION' | translate }}
             </ion-item>
             <ion-item menu-close class="item item-icon-left menuListElements" ng-click="logout()">
               <i class="icon ion-android-exit"></i>
-              Desconectar
+              {{ 'DESCONECTAR' | translate }}
             </ion-item>
           </div>
       </div>

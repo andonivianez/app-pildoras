@@ -4,9 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ngCordova', 'starter.controllers', 'ionic-material', 'ionic.rating', 'jett.ionic.filter.bar', 'ionMdInput'])
+angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ngCordova', 'starter.controllers', 'ionic-material', 'ionic.rating', 'jett.ionic.filter.bar', 'ionMdInput', 'pascalprecht.translate'])
 
-.run(function($ionicPlatform, $localstorage) {
+.run(function($ionicPlatform, $localstorage, $translate) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -21,7 +21,7 @@ angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ng
     }
     $localstorage.setObject('pills', {});
   });
-/*
+
 if(typeof navigator.globalization !== "undefined") {
     navigator.globalization.getPreferredLanguage(function(language) {
         $translate.use((language.value).split("-")[0]).then(function(data) {
@@ -30,11 +30,11 @@ if(typeof navigator.globalization !== "undefined") {
             console.log("ERROR -> " + error);
         });
     }, null);
-}*/
+}
 
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider, $translateProvider) {
   $stateProvider
 
     .state('app', {
@@ -131,7 +131,7 @@ if(typeof navigator.globalization !== "undefined") {
    $httpProvider.interceptors.push('authInterceptor');
 
 ////////////////TRANSLATIOONNSSS///////
-/*$translateProvider.translations('es', {
+$translateProvider.translations('es', {
     'AJUSTES': 'Ajustes',
     'NOTIFICACIONES': 'Notificaciones',
     'IDIOMA': 'Idioma',
@@ -160,7 +160,7 @@ if(typeof navigator.globalization !== "undefined") {
   });
  
   $translateProvider.preferredLanguage('es'); //idioma por defecto
-*/
+
 
 });
 
