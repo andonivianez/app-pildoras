@@ -31,14 +31,14 @@
             [DEV]Login
           </ion-item> -->
           <div class="bottomFixedMenuList">
-            <ion-item class="item item-icon-left menuListElements" menu-close >
+            <ion-item class="item item-icon-left menuListElements" menu-close ng-click="laterModalOpen()">
               <i class="icon ion-eye"></i> {{ 'VERMASTARDE' | translate }}
             </ion-item>
             <ion-item menu-close class="item item-icon-left menuListElements">
               <i class="icon ion-pin"></i>
                 {{ 'SINCONEXION' | translate }}
             </ion-item>
-            <ion-item menu-close class="item item-icon-left menuListElements">
+            <ion-item menu-close class="item item-icon-left menuListElements" ng-click="historyModalOpen()">
               <i class="icon ion-ios-clock"></i>
                 {{ 'HISTORIAL' | translate }}
             </ion-item>

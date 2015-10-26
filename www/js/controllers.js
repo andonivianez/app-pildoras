@@ -6,11 +6,11 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $localstorage,
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
   // listen for the $ionicView.enter event:
-      $ionicModal.fromTemplateUrl('templates/login.html', {
-        scope: $scope
-      }).then(function(modal) {
-        $scope.modal = modal;
-      });
+  $ionicModal.fromTemplateUrl('templates/login.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
 
   $scope.$on('$ionicView.enter', function(e) {
 //hay que hacer que la primera vez, guarde en localstorage los datos del usuario, y que cada vez que entre renueve el token.
@@ -52,7 +52,8 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $localstorage,
       .error(function (data) {
         // Erase the token if the user fails to log in
         //delete $window.sessionStorage.token;
-        console.log("Algo ha ido mal: "+data);            
+        console.log("Algo ha ido mal: "+data); 
+        $scope.modal.show();
       });
   };
 
@@ -91,6 +92,32 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $localstorage,
          }
        });
      };
+
+    ////////CREAMOS LAS MODALES PARA EL HISTORIAL Y EL VER MÁS TARDE/////////////
+    $ionicModal.fromTemplateUrl('templates/historial.html', {
+      scope: $scope,
+      animation: 'slide-in-right'
+    }).then(function(modal) {
+      $scope.historyModal = modal;
+    });
+
+    $ionicModal.fromTemplateUrl('templates/vermastarde.html', {
+      scope: $scope,
+      animation: 'slide-in-right'
+    }).then(function(modal) {
+      $scope.laterModal = modal;
+    });
+
+
+    $scope.historyModalOpen = function(){
+     // $state.go('settings');
+      $scope.historyModal.show();
+    }
+
+    $scope.laterModalOpen = function(){
+      //$state.go('settings');
+      $scope.laterModal.show();
+    }
 
 })
 
@@ -170,7 +197,7 @@ app.controller('CoursesCtrl', function($http,$scope, $sce, $stateParams, $ionicP
 
 
     //nada más entrar en la pantalla...
-    $scope.$on('$ionicView.beforeEnter', function(e) {
+    $scope.$on('$ionicView.loaded', function(e) {
         $scope.loadCourses();
     });
 
@@ -206,12 +233,12 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
 
 
     //cada vez que entre metemos la pill en el historial
-   /* if(Object.keys($localstorage.getObject('historial')).length == 0){
+    if(Object.keys($localstorage.getObject('historial')).length == 0){
       $rootScope.historial = [];
     }else{
       $rootScope.historial.push($scope.datapill);
       console.log($rootScope.historial);
-    }*/
+    }
     
     $scope.selectedPill = $rootScope.selectedPill;
     console.log("El elegido esssssss: "+$scope.selectedPill)
@@ -266,34 +293,6 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
          console.log('Your password is', res);
        });
     }
-
-    ////////CREAMOS LAS MODALES PARA EL HISTORIAL Y EL VER MÁS TARDE/////////////
-    $ionicModal.fromTemplateUrl('templates/historial.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function(modal) {
-      $scope.historyModal = modal;
-    });
-
-    $ionicModal.fromTemplateUrl('templates/vermastarde.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function(modal) {
-      $scope.laterModal = modal;
-    });
-
-
-    $scope.historyModalOpen = function(){
-     // $state.go('settings');
-      $scope.historyModal.show();
-    }
-
-    $scope.laterModalOpen = function(){
-      //$state.go('settings');
-      $scope.laterModal.show();
-    }
-
-
 
     $scope.startTest = function(pillId){
       //console.log("que pasa")
