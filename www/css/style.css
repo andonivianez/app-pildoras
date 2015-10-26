@@ -13,6 +13,7 @@
   background-color: #80b51b !important;
 }
 
+
 .spinner-balanced svg{
     stroke: #80b51b !important;
     fill: #80b51b !important;
@@ -152,8 +153,8 @@ ul.rating li i {
 
 .pill-back{
   top: 1em !important;
-  width: 30px !important;
-  height: 30px !important;
+  width: 28px !important;
+  height: 28px !important;
 }
 
 .test-block{
@@ -261,10 +262,13 @@ ul.rating li i {
 .item-md-label input{
   background-color: #f2f7e8 !important;
   width: 92% !important;
+  color: #666666 !important;
 }
 
 .item-md-label .input-label{
-  padding-left: 0.8em !important;
+  padding-left: 0.1em !important;
+  padding-bottom: 0.2em !important;
+  color: #666666 !important;
 }
 
 

@@ -1,6 +1,6 @@
 var app = angular.module('starter.controllers', [])
 
-app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $localstorage, $ionicLoading, LoginService, $state, $rootScope, $http) {
+app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $localstorage, $ionicLoading, LoginService, $state, $rootScope, $http, $ionicPopup) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -53,6 +53,7 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $localstorage,
         // Erase the token if the user fails to log in
         //delete $window.sessionStorage.token;
         console.log("Algo ha ido mal: "+data); 
+        $localstorage.clear();
         $scope.modal.show();
       });
   };
@@ -68,6 +69,7 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $localstorage,
           $state.go('app.courses');
         }else{
           alert("Usuario/contraseña incorrectos");
+          $state.go('loading');
           $scope.modal.show();
         }
       }, 3000);
@@ -78,22 +80,26 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $localstorage,
     // A confirm dialog
      $scope.logout = function() {//esto falta poner popup de los buenos
        var confirmPopup = $ionicPopup.confirm({
-         title: 'Desconexión del usuario',
-         template: '¿Estás seguro de que deseas desconectar al usuario?'
+        title: 'Desconexión del usuario',
+        template: '¿Estás seguro de que deseas desconectar al usuario?',
+        cssClass: 'courseBackgroundPopUp', // String, The custom CSS class name
+        //template: '<a>Estoy es una prueba de lo que saldría</a>', // String (optional). The html template to place in the popup body.
+        cancelText: 'Cancelar', // String (default: 'Cancel'). The text of the Cancel button.
+        cancelType: 'backgroundPopUpDownloadButtons', // String (default: 'button-default'). The type of the Cancel button.
+        okText: 'Aceptar', // String (default: 'OK'). The text of the OK button.
+        okType: 'backgroundPopUpDownloadButtons' // String (default: 'button-positive'). The type of the OK button.
        });
        confirmPopup.then(function(res) {
          if(res) {
-           $ionicPopup.alert({
-             title: 'Desconexión realizada',
-             template: 'Gracias por usar esta aplicación.'
-           });
-         } else {
-           console.log('You are not sure');
-         }
+            $localstorage.clear();
+            $state.go('loading');
+            $scope.modal.show();
+         } 
        });
      };
 
     ////////CREAMOS LAS MODALES PARA EL HISTORIAL Y EL VER MÁS TARDE/////////////
+    ///////////HISTORIAL///////////
     $ionicModal.fromTemplateUrl('templates/historial.html', {
       scope: $scope,
       animation: 'slide-in-right'
@@ -101,23 +107,36 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $localstorage,
       $scope.historyModal = modal;
     });
 
+    $scope.historyModalOpen = function(){
+     // $state.go('settings');
+      $scope.historyModal.show();
+    }
+    $scope.historyModalClose = function(){
+     // $state.go('settings');
+      $scope.historyModal.hide();
+    }
+
+    //////////VERMASTARDE////////////
     $ionicModal.fromTemplateUrl('templates/vermastarde.html', {
       scope: $scope,
       animation: 'slide-in-right'
     }).then(function(modal) {
       $scope.laterModal = modal;
     });
-
-
-    $scope.historyModalOpen = function(){
-     // $state.go('settings');
-      $scope.historyModal.show();
-    }
-
     $scope.laterModalOpen = function(){
       //$state.go('settings');
+      $scope.datapill= $rootScope.detail_pill;
       $scope.laterModal.show();
     }
+    $scope.laterModalClose = function(){
+      //$state.go('settings');
+      $scope.laterModal.hide();
+    }
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.laterModal.remove();
+      $scope.historyModal.remove();
+    });
 
 })
 
@@ -229,7 +248,7 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
 
    // console.log($ionicHistory.viewHistory());
     $scope.datapill= $rootScope.detail_pill;
-    //console.log($scope.datapill);
+    console.log($scope.datapill);
 
 
     //cada vez que entre metemos la pill en el historial
@@ -237,6 +256,7 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
       $rootScope.historial = [];
     }else{
       $rootScope.historial.push($scope.datapill);
+      $localstorage.setObject('historial', $rootScope.historial);
       console.log($rootScope.historial);
     }
     
@@ -295,17 +315,14 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
     }
 
     $scope.startTest = function(pillId){
-      //console.log("que pasa")
-      ///$location.path("#/app/test/"+pillId);
-      $state.go('app.test', {testId: pillId})
+      $state.go('test', {testId: pillId})
     }
 
     $scope.volverACursos = function(){
       //console.log("que pasa")
       ///$location.path("#/app/test/"+pillId);
-       $backView = $ionicHistory.backView();
-        $backView.go();
-      //$ionicHistory.backView();
+      $backView = $ionicHistory.backView();
+      $backView.go();
       $scope.selectedPill = '';
       $rootScope.selectedPill = '';
     }
@@ -315,14 +332,6 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
     $scope.readOnly = true;
     $scope.rate = $scope.datapill[$scope.selectedPill].rating_static;
     console.log($scope.rate);
-
-    $scope.startTest = function(pillId){
-      //console.log("que pasa")
-      ///$location.path("#/app/test/"+pillId);
-      $state.go('app.test', {testId: pillId});
-
-    }
-
 
     //meter video al historial
     $scope.videoControls = function(){this.paused?this.play():this.pause();}
@@ -345,6 +354,9 @@ app.controller('TestCtrl', function($scope, $stateParams) {
   $scope.testClean = function(){
     $scope.process = 'prevtest';
   }
+  $scope.endTest = function(){
+    $scope.process = 'endtest';
+  }
 
 });
 
@@ -354,23 +366,6 @@ app.controller('SettingsCtrl', function($scope, $stateParams, $ionicHistory) {
 });
 
 /*Services*/
-/*
-app.service('DataService', function($http, $q, $localstorage) {
-  var pillCourses = $q.defer(); //hay que hacer que llame al del otro service, y ver lo que tarda en cargar todas las pills. Si eso que pille con then. y un if
-
-    $http.get('http://app-pildoras.tak.es/app_dev.php/api/pills.json',  
-      headers{
-        "Bearer"+
-
-    }).then(function(response) {
-        pillCourses.resolve(response.data);
-    });
-
-    this.getPillCourses = function() {
-        return pillCourses.promise;
-    };
-});*/
-
 
 app.factory('LoginService',['$http',function($http){
 
@@ -461,6 +456,9 @@ app.factory('$localstorage', ['$window', function($window) {
     },
     getObject: function(key) {
       return JSON.parse($window.localStorage[key] || '{}');
+    },
+    clear: function () {
+            $window.localStorage.clear();
     }
   }
 }]);

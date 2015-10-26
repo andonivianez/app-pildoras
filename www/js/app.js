@@ -61,10 +61,10 @@ if(typeof navigator.globalization !== "undefined") {
     }
   })
 
-  .state('app.test', {
-    url: '/test/:testId',
-    templateUrl: 'templates/test.html',
-    controller: 'TestCtrl'
+  .state('test', {
+    url: '/test',
+        templateUrl: 'templates/test.html',
+        controller: 'TestCtrl'
   })
 
   .state('settings', {
@@ -125,14 +125,13 @@ if(typeof navigator.globalization !== "undefined") {
   $urlRouterProvider.otherwise('loading');
 
   $ionicConfigProvider.navBar.alignTitle('center');
-  //$ionicConfigProvider.views.transition("none");
-   $httpProvider.defaults.headers.post = { 'Content-Type' : 'application/json' };
-   $httpProvider.defaults.withCredentials = true;
-   $httpProvider.interceptors.push('authInterceptor');
+  $httpProvider.defaults.headers.post = { 'Content-Type' : 'application/json' };
+  $httpProvider.defaults.withCredentials = true;
+  $httpProvider.interceptors.push('authInterceptor');
 
 ////////////////TRANSLATIOONNSSS///////
 $translateProvider.translations('es', {
-    'AJUSTES': 'Ajustes',
+    'AJUSTES': 'Configuración',
     'NOTIFICACIONES': 'Notificaciones',
     'IDIOMA': 'Idioma',
     'CONTACTO': 'Contacto',
