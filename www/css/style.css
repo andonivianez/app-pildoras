@@ -45,7 +45,7 @@ h1, h2{
 }
 
 body{
-  font-family: "Roboto", regular !important;
+  font-family: "Roboto regular" !important;
 }
 
 .fa-circle{
@@ -67,6 +67,10 @@ body{
 
 .sideMenuList{
 
+}
+
+.menuListElements{
+  font-size: 5vw;
 }
 
 ul.rating li {
@@ -165,7 +169,7 @@ ul.rating li i {
 
 .test-number{
   text-align: center;
-  padding-right: 1.5em;
+  padding-right: 1em;
   border-left: 1px solid #80b51b;
 }
 
@@ -324,4 +328,14 @@ ul.rating li i {
 
 .avisoLegalTitle{
   color: #80b51b !important;
+}
+
+
+
+.idiomas-text{
+  font-size: 4.5vw;
+}
+
+.idiomas-list{
+  border-bottom: 1px solid #d0cfd3 !important;
 }

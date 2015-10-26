@@ -1,0 +1,32 @@
+<ion-header-bar align-title="center" class="bar-balanced">
+  <div class="buttons">
+  <a href="#/app/courses">
+    <button class="button button-icon button-clear ion-android-arrow-back"></button>
+    </a>
+  </div>
+  <h1 class="title">{{ 'VERMASTARDE' | translate }}</h1>
+</ion-header-bar>
+<ion-view hide-nav-bar="true"  class="blank_background_color">
+  <ion-content>
+    <div class="list">
+            <ion-item nav-clear class="item-thumbnail-left" nav-transition="ios" ng-click="getCourseById(5)" >
+              <img ng-src="http://www.spain.info/export/sites/spaininfo/comun/carrusel-recursos/pais-vasco/d_monte_igueldo_san_sebastian_donostia_t2000030a.jpg_369272544.jpg"/>
+           <!--   <i id="thumbnail-label" class="icon ion-ios-videocam balanced" ng-if="pill.translations.es.video_url == null"></i> 
+              <span id="thumbnail-label" class="fa-stack fa-lg" ng-if="pill.translations.es.resource_url != 'null'">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-file fa-stack-1x positive"></i>
+              </span>!-->
+           <!--   <i id="thumbnail-label" class="icon fa fa-file balanced" ng-if="pill.translations.es.resource_url == null"></i> !-->
+              <span id="thumbnail-label" class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-video-camera fa-stack-1x positive"></i>
+              </span>
+              <h2 class="course-title" ng-model="title">Píldora de prueba</h2>
+              <p class="course-date"><b>J&A Developers</b> | 2015·10·30</p>
+              <div class="row data-row">
+                <div class="col"><rating readonly="readOnly" max="5"></rating></div>
+              </div>
+            </ion-item>
+        </div>
+  </ion-content>
+</ion-view>

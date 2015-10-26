@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ngCordova', 'starter.controllers', 'ionic-material', 'ionic.rating', 'jett.ionic.filter.bar', 'ionMdInput', 'ionic-cache-src',])
+angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ngCordova', 'starter.controllers', 'ionic-material', 'ionic.rating', 'jett.ionic.filter.bar', 'ionMdInput'])
 
 .run(function($ionicPlatform, $localstorage) {
   $ionicPlatform.ready(function() {
@@ -21,6 +21,16 @@ angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ng
     }
     $localstorage.setObject('pills', {});
   });
+/*
+if(typeof navigator.globalization !== "undefined") {
+    navigator.globalization.getPreferredLanguage(function(language) {
+        $translate.use((language.value).split("-")[0]).then(function(data) {
+            console.log("SUCCESS -> " + data);
+        }, function(error) {
+            console.log("ERROR -> " + error);
+        });
+    }, null);
+}*/
 
 })
 
@@ -87,7 +97,7 @@ angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ng
     templateUrl: 'templates/ajustes/acercade.html',
     controller: 'SettingsCtrl'
   })
-   
+
   .state('avisolegal', {
     url: '/avisolegal',
     templateUrl: 'templates/ajustes/avisolegal.html',
@@ -120,6 +130,37 @@ angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ng
    $httpProvider.defaults.withCredentials = true;
    $httpProvider.interceptors.push('authInterceptor');
 
+////////////////TRANSLATIOONNSSS///////
+/*$translateProvider.translations('es', {
+    'AJUSTES': 'Ajustes',
+    'NOTIFICACIONES': 'Notificaciones',
+    'IDIOMA': 'Idioma',
+    'CONTACTO': 'Contacto',
+    'AVISOLEGAL': 'Aviso legal',
+    'ACERCADE': 'Acerca de',
+    'VERMASTARDE': 'Ver más tarde',
+    'SINCONEXION': 'Sin conexión',
+    'HISTORIAL': 'Historial',
+    'CONFIGURACION': 'Configuración',
+    'DESCONECTAR': 'Desconectar',
+  });
+ 
+  $translateProvider.translations('eu', {
+    'AJUSTES': 'Ezarpenak',
+    'NOTIFICACIONES': 'Notificaciones',
+    'IDIOMA': 'Hizkuntza',
+    'CONTACTO': 'Kontaktua',
+    'AVISOLEGAL': 'Ohar legala',
+    'ACERCADE': 'Aplikazioari buruz',
+    'VERMASTARDE': 'Geroago ikusi',
+    'SINCONEXION': 'Konexiorik gabe',
+    'HISTORIAL': 'Ikusitak',
+    'CONFIGURACION': 'Ezarpenak',
+    'DESCONECTAR': 'Irten',
+  });
+ 
+  $translateProvider.preferredLanguage('es'); //idioma por defecto
+*/
 
 });
 

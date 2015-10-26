@@ -3,13 +3,9 @@
     <button ng-click="volverACursos()" class="button button-icon button-clear ion-android-arrow-back"></button>
   </div>
   <h1 class="title">{{datapill[selectedPill].translations.es.title}}</h1>
-</ion-header-bar>
-<ion-view style="-webkit-transform: translateZ(0);">-->
-
-
-
-
-  <ion-content id="detalle_pildora" overflow-scroll="true">
+</ion-header-bar>-->
+<ion-view style="-webkit-transform: translateZ(0);">
+  <ion-content id="detalle_pildora" overflow-scroll="true" scroll="true">
 	<a href="#/app/courses">
 		<button class="button button-fab button-fab-bottom-left button-balanced icon ion-ios-arrow-back waves-effect waves-button waves-light pill-back"></button>
 	</a><!--
@@ -54,7 +50,6 @@
 	<div class="row responsive-sm detailPill-responsive-block-adjust">
 		<h2 class="col detailPill-comentarios">Comentarios</h2>
 		<h4 class="col detailPill-comentarios-insert" ng-click="addComment()">Escribe aquí tu comentario</h4>
-		
     </div>
 
   </ion-content>

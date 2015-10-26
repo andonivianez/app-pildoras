@@ -198,18 +198,23 @@ app.controller('CoursesCtrl', function($http,$scope, $sce, $stateParams, $ionicP
 
 })
 
-app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $ionicPopup, $location, $state, $ionicHistory, $ionicModal) {
+app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $ionicPopup, $location, $state, $ionicHistory, $ionicModal, $localstorage) {
 
    // console.log($ionicHistory.viewHistory());
-    $scope.datapill= $rootScope.detail_pill
+    $scope.datapill= $rootScope.detail_pill;
     //console.log($scope.datapill);
 
-    $rootScope.historial = [];
 
-    //meter función para que meta en el puto historial cada vez que entra
-
+    //cada vez que entre metemos la pill en el historial
+   /* if(Object.keys($localstorage.getObject('historial')).length == 0){
+      $rootScope.historial = [];
+    }else{
+      $rootScope.historial.push($scope.datapill);
+      console.log($rootScope.historial);
+    }*/
+    
     $scope.selectedPill = $rootScope.selectedPill;
-    //console.log("El elegido esssssss: "+$scope.selectedPill)
+    console.log("El elegido esssssss: "+$scope.selectedPill)
     //videoplayer params
     $scope.clipSrc = $sce.trustAsResourceUrl($scope.datapill[$scope.selectedPill].translations.es.video_url);
     $scope.myPreviewImageSrc = $scope.datapill[$scope.selectedPill].translations.es.image_url;
@@ -239,9 +244,23 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
 
     $scope.addComment = function(pillId){
        $ionicPopup.prompt({
-         title: 'Introduce tu comentario',
-         //template: 'Escribe aquí',
-         //inputType: 'password',
+        cssClass: 'courseBackgroundPopUp', // String, The custom CSS class name
+        //template: '<a>Estoy es una prueba de lo que saldría</a>', // String (optional). The html template to place in the popup body.
+        templateUrl: 'templates/popups/comentar.html', // String (optional). The URL of an html template to place in the popup   body.
+        buttons: [{ // Array[Object] (optional). Buttons to place in the popup footer.
+            text: 'Cancelar',
+            type: 'backgroundPopUpDownloadButtons',
+            onTap: function(e) {
+              // e.preventDefault() will stop the popup from closing when tapped.
+            }
+          }, {
+            text: 'Aceptar',
+            type: 'backgroundPopUpDownloadButtons',
+            onTap: function(e) {
+              // Returning a value will cause the promise to resolve with the given value.
+              console.log("llamamos a la función para meterlo");
+            }
+          }],
          inputPlaceholder: 'Escribe aquí'
        }).then(function(res) {
          console.log('Your password is', res);
@@ -256,14 +275,22 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
       $scope.historyModal = modal;
     });
 
+    $ionicModal.fromTemplateUrl('templates/vermastarde.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.laterModal = modal;
+    });
+
 
     $scope.historyModalOpen = function(){
      // $state.go('settings');
       $scope.historyModal.show();
     }
 
-    $scope.laterModal = function(){
+    $scope.laterModalOpen = function(){
       //$state.go('settings');
+      $scope.laterModal.show();
     }
 
 
