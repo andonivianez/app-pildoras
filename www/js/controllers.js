@@ -25,6 +25,7 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $localstorage,
       var ctoken = $localstorage.getObject('token');
       //console.log(ctoken);
       $scope.loginData = $localstorage.getObject('login');
+      console.log($localstorage.getObject('login'));
       $scope.continueToCourses(ctoken);
     }else{
       //si ya estoy dentro no hago nada

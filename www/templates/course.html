@@ -5,22 +5,31 @@
   <h1 class="title">{{datapill[selectedPill].translations.es.title}}</h1>
 </ion-header-bar>-->
 <ion-view style="-webkit-transform: translateZ(0);">
-  <ion-content id="detalle_pildora" overflow-scroll="true" scroll="true">
+  <ion-content class="detalle_pildora container" overflow-scroll="true" scroll="true">
 	<a href="#/app/courses">
-		<button class="button button-fab button-fab-bottom-left button-balanced icon ion-ios-arrow-back waves-effect waves-button waves-light pill-back"></button>
-	</a><!--
-	<div class="item item-image pildora-info-full">
-		 img src="http://www.miscocheselectricos.com/archivos/tesla-model-s-sunset-628-1354200468.jpg"> 
-	</div>
-
-	-->
+		<button class="btn-floating waves-effect waves-light button-balanced icon ion-ios-arrow-back pill-back"></button>
+	</a>
 	<videoplayer></videoplayer>
 	
-    <div class="row responsive-sm detailPill-responsive-block-adjust">
+  <!--  <div class="row responsive-sm detailPill-responsive-block-adjust">
 	    <h2 class="col detailPill-title">{{datapill[selectedPill].translations.es.title}}</h2>
 	    <h4 class="col dataPill-authorData"><b>{{datapill[selectedPill].author}}</b> | {{datapill[selectedPill].date_start| date:" yyyy · MM · dd"}}</h4>
+    </div> 
+
+    <div class="col rating_detalle"><!--<rating readonly="readOnly" ng-model="rate" max="max"></rating></div>-->
+
+
+ 
+
+    <div class="row">
+      <div class="col s12"><h2 class="col detailPill-title">{{datapill[selectedPill].translations.es.title}}</h2></div>
+      <div class="col s12"><h4 class="col dataPill-authorData"><b>{{datapill[selectedPill].author}}</b> | {{datapill[selectedPill].date_start| date:" yyyy · MM · dd"}}</h4></div>
     </div>
-    <div class="col rating_detalle"><rating readonly="readOnly" ng-model="rate" max="max"></rating></div>
+
+    <div class="row">
+      <div class="col s8"><!--<rating readonly="readOnly" ng-model="rate" max="max"></rating>--></div>
+      <div class="col s4"><i class="large material-icons">chart_buble</i></div>
+    </div>
     <div class="row">
 		<div class="row test-block" ng-click="startTest(selectedPill)">
 		  <div class="col col-75"><b>Test</b></div>

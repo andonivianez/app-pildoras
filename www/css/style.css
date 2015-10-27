@@ -23,6 +23,16 @@ h1, h2{
   color: #666666;
 }
 
+input:focus:not([readonly]){
+   box-shadow: 0 1px 0 0 #80b51b !important;
+}
+
+input:focus:not([readonly]) + label{
+  color: #666666 !important;
+  font-size: 4.5vw;
+}
+
+
 
 .login-avatar{
   background-color:#f2f2f2 !important;
@@ -37,6 +47,12 @@ h1, h2{
   clear: both;
 }
 
+.loginBottomBlock{
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+}
+
 .page_background_color{
   background-color: #f2f2f2 !important;
 }
@@ -47,6 +63,10 @@ h1, h2{
 
 body{
   font-family: "Roboto regular" !important;
+}
+
+.scroll{
+  min-height: 100%;
 }
 
 .fa-circle{
@@ -86,6 +106,16 @@ ul.rating li i {
   color: #e7ce2a !important;
 }
 
+.item-thumbnail-left{
+    padding-left: 26vw !important;
+}
+
+.item-thumbnail-left>img{
+  max-width: 10em !important;
+  max-height: 10em !important;
+}
+
+
 .course-title{
     left: 4.2em;
     top: 0.3em;
@@ -103,6 +133,14 @@ ul.rating li i {
   background-color: #e8f0e6;
 }
 
+.searchButton{
+  bottom: 7vw;
+  right: 7vw;
+  position: fixed;
+  height: 45px;
+  width: 45px;
+}
+
 .data-row{
     position: relative !important;
     left: 4.8em !important;
@@ -116,8 +154,8 @@ ul.rating li i {
     bottom: 0.3em;
   }
 
-#detalle_pildora{
-  background-color: #f2f2f2;
+.detalle_pildora{
+  background-color: #f2f2f2 !important;
 }
 
 .pildora-info-full{
@@ -152,9 +190,11 @@ ul.rating li i {
 }
 
 .pill-back{
-  top: 1em !important;
-  width: 28px !important;
-  height: 28px !important;
+  top: 5vw;
+  left: 4vw;
+  position: fixed;
+  height: 35px;
+  width: 35px;
 }
 
 .test-block{
