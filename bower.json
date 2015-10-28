@@ -8,6 +8,7 @@
     "ngCordova": "~0.1.20-alpha"
   },
   "dependencies": {
-    "fontawesome": "~4.4.0"
+    "fontawesome": "~4.4.0",
+    "ionic-ratings": "~0.2.0"
   }
 }

@@ -110,7 +110,7 @@ ul.rating li i {
     padding-left: 26vw !important;
 }
 
-.item-thumbnail-left>img{
+.item-thumbnail-left>img:first-child{
   max-width: 10em !important;
   max-height: 10em !important;
 }
@@ -382,4 +382,19 @@ ul.rating li i {
 
 .idiomas-list{
   border-bottom: 1px solid #d0cfd3 !important;
+}
+
+
+
+/* FIX POPOVER */
+ion-popover-view.fit {
+  height: auto !important;
+}
+
+ion-popover-view.fit ion-content {
+  position: relative !important;
+}
+
+.platform-android ion-popover-view.fit {
+  margin-top: 10px !important;
 }

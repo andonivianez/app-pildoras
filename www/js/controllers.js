@@ -139,6 +139,13 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $localstorage,
       $scope.historyModal.remove();
     });
 
+
+
+    $scope.ajustes = function(){
+      $state.go('settings');
+    }
+
+
 })
 
 app.controller('CoursesCtrl', function($http,$scope, $sce, $stateParams, $ionicPopup, $rootScope, $ionicPopover, $ionicHistory, $state, LoginService, $localstorage, $ionicModal) {
@@ -202,27 +209,35 @@ app.controller('CoursesCtrl', function($http,$scope, $sce, $stateParams, $ionicP
             $rootScope.detail_pill[id] = value;
         }
       });   
-      console.log($rootScope.detail_pill);
+      //console.log("Esto debería verse una sola vez: "+$rootScope.detail_pill);
       $state.go('single');
     }
-
-
-    $scope.ajustes = function(){
-      $state.go('settings');
-    }
-
-
-
-
-
 
     //nada más entrar en la pantalla...
     $scope.$on('$ionicView.loaded', function(e) {
         $scope.loadCourses();
     });
 
-    //estrellas
-    $scope.max = 5;
+
+    /* SECCION RATING; DEJAMOS MARCA EN MASTER */
+    $scope.ratingCurso = {
+        iconOn : 'ion-ios-star',
+        iconOff : 'ion-ios-star-outline',
+        iconOnColor: 'rgb(200, 200, 100)',
+        iconOffColor:  'rgb(200, 100, 100)',
+        rating:  2,
+        minRating:1,
+        callback: function(rating) {
+          $scope.ratingCurso(rating);
+        }
+      };
+
+      $scope.ratingsCallback = function(rating) {
+        console.log('Selected rating is : ', rating);
+      };
+
+
+
 
     /*PopOver*/
       // .fromTemplateUrl() method
