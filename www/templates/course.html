@@ -23,7 +23,10 @@
 		  <div class="col test-number">0/0</div>
 		</div>
 	</div>
-
+	<div class="row responsive-sm detailPill-responsive-block-adjust">
+		<h2 class="col detailPill-descripcion">Descripción</h2>
+		  <div class="col detailPill-descripcion-text">{{datapill[selectedPill].translations.es.description}}</div>
+	</div>
     -->
 
     <div class="row">
@@ -36,13 +39,13 @@
 
 
     <div class="row">
-      <div class="col s8"><ionic-ratings ratingsobj='ratingsCurso'></ionic-ratings></div>
-      <div class="col s4"><i class="small material-icons">chat_buble</i></div>
+      <div class="col s11"><ionic-ratings ratingsobj='ratingsObject'></ionic-ratings></div>
+      <div class="col s1"><i class="small material-icons">chat_buble</i></div>
     </div>
 
 	<div class="row test-block" ng-click="startTest(selectedPill)">
-      <div class="col s10"><b>Test</b></div>
-      <div class="col s2">0/0</div>
+      <div class="col s11"><b>Test</b></div>
+      <div class="col s1">0/0</div>
     </div>
 
 	<div class="list pill-options">
@@ -59,15 +62,21 @@
         </ion-toggle>
 	 </div>
 
-	<div class="row responsive-sm detailPill-responsive-block-adjust">
-		<h2 class="col detailPill-descripcion">Descripción</h2>
-		  <div class="col detailPill-descripcion-text">{{datapill[selectedPill].translations.es.description}}</div>
-	</div>
-
-	<div class="row responsive-sm detailPill-responsive-block-adjust">
-		<h2 class="col detailPill-comentarios">Comentarios</h2>
-		<h4 class="col detailPill-comentarios-insert" ng-click="addComment()">Escribe aquí tu comentario</h4>
+	<div class="row">
+      <div class="col s12"><h2 class="col detailPill-descripcion">Descripción</h2></div>
     </div>
 
+	<div class="row">
+      <div class="col s12 detailPill-descripcion-text">{{datapill[selectedPill].translations.es.description}}</div>
+    </div>
+
+
+	<div class="row">
+      <div class="col s12"><h2 class="col detailPill-comentarios">Comentarios</h2></div>
+    </div>
+
+	<div class="row">
+      <div class="col s12 detailPill-descripcion-text"><h4 class="col detailPill-comentarios-insert" ng-click="addComment()">Escribe aquí tu comentario</h4></div>
+    </div>
   </ion-content>
 </ion-view>

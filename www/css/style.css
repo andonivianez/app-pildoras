@@ -48,8 +48,8 @@ input:focus:not([readonly]) + label{
 }
 
 .loginBottomBlock{
-    bottom: 0;
-    position: absolute;
+    margin-top: 68%;
+    position: relative;
     width: 100%;
 }
 
@@ -198,14 +198,16 @@ ul.rating li i {
 }
 
 .test-block{
-    color: #80b51b;
-    background-color: white;
-    padding: 0.5em;
-    border: 1px solid;
-    border-radius: 4px;
-    width: 91.2%;
-    margin-left: auto;
-    margin-right: auto;
+  color: #80b51b;
+  background-color: white;
+  padding-top: 1em !important;
+  padding-bottom: 1em !important;
+  border: 1px solid;
+  border-radius: 4px;
+  width: 91.2%;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  position: relative;
 }
 
 .test-number{
@@ -221,7 +223,6 @@ ul.rating li i {
 }
 
 .detailPill-descripcion-text{
-    padding-left: 2.2vw;
     font-size: 4.5vw;
     font-family: Roboto light;
 }

@@ -220,7 +220,7 @@ app.controller('CoursesCtrl', function($http,$scope, $sce, $stateParams, $ionicP
 
 
     /* SECCION RATING; DEJAMOS MARCA EN MASTER */
-    $scope.ratingCurso = {
+    $scope.ratingsObject  = {
         iconOn : 'ion-ios-star',
         iconOff : 'ion-ios-star-outline',
         iconOnColor: 'rgb(200, 200, 100)',
@@ -228,15 +228,13 @@ app.controller('CoursesCtrl', function($http,$scope, $sce, $stateParams, $ionicP
         rating:  2,
         minRating:1,
         callback: function(rating) {
-          $scope.ratingCurso(rating);
+          $scope.ratingsObject (rating);
         }
       };
 
       $scope.ratingsCallback = function(rating) {
         console.log('Selected rating is : ', rating);
       };
-
-
 
 
     /*PopOver*/
