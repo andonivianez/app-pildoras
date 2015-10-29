@@ -1,44 +1,33 @@
+
 <a href="#/app/test" ng-click="testClean()">
-	<button class="button button-fab button-fab-bottom-left button-balanced icon ion-ios-arrow-back waves-effect waves-button waves-light test-back"></button>
+	<button class="btn-floating waves-effect waves-light button-balanced icon ion-ios-arrow-back pill-back"></button>
 </a>
 <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="false" show-pager="false">
   <ion-slide>
   	<div class="box">
 	    <div class="row responsive-sm">
-			<div class="col testTitle">Test</div>
-			<div class="col">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae massa in risus faucibus facilisis ut eu sapien. Sed a ligula varius, maximus purus non, venenatis dolor. Sed sit amet sagittis dolor. Fusce sit amet libero mi.</div>
-			<div class="col">
-				<div class="item item-checkbox checkbox-balanced item-text-wrap testItems">
-					<label class="checkbox">
-						<input type="checkbox">
-					</label>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus viverra, sapien at vestibulum volutpat, metus eros fringilla dolor, aliquet sodales velit orci sed felis.
-				</div>
-				<div class="item item-checkbox checkbox-balanced item-text-wrap testItems">
-					<label class="checkbox">
-						<input type="checkbox">
-					</label>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus viverra, sapien at vestibulum volutpat, metus eros fringilla dolor, aliquet sodales velit orci sed felis.
-				</div>
-				<div class="item item-checkbox checkbox-balanced item-text-wrap testItems">
-					<label class="checkbox">
-						<input type="checkbox">
-					</label>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus viverra, sapien at vestibulum volutpat, metus eros fringilla dolor, aliquet sodales velit orci sed felis.
-				</div>
+			<div class="col testTitle">{{datapill[selectedPill].test.translations.es.title}}</div>
+			<div class="col">{{datapill[selectedPill].test.questions[0].translations.es.title}}</div>
+			<div class="row">
+			<form action="#">
+			    <p>
+			      <input class="with-gap" name="group1" type="radio" id="test1" />
+			      <label for="test1">{{datapill[selectedPill].test.questions[0].answers[0].translations.es.title}}</label>
+			    </p>    
+			    <p>
+			      <input class="with-gap" name="group1" type="radio" id="test2" />
+			      <label for="test2">{{datapill[selectedPill].test.questions[0].answers[1].translations.es.title}}</label>
+			    </p>    
+			    <p>
+			      <input class="with-gap" name="group1" type="radio" id="test3" />
+			      <label for="test3">{{datapill[selectedPill].test.questions[0].answers[2].translations.es.title}}</label>
+			    </p>
+			</form>
 			</div>
-			<div class="col">
-				<button class="button button-balanced" style="width: 100%;" ng-click="endTest()">
-					Validar
-				</button>
-			</div>
-		</div>
+	<div class="row">
+	  <div class="col s12"><button class="button button-full button-balanced login-button" ng-click="endTest()">Validar</button></div>
+	</div>
 	</div>
 
   </ion-slide>
-<!--   
-  <ion-slide>
-    <div class="box yellow"><h1>YELLOW</h1></div>
-  </ion-slide>
-!-->
 </ion-slide-box>

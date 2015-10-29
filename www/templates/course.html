@@ -38,12 +38,12 @@
     </div>
 
 
-    <div class="row">
+   <!-- <div class="row">
       <div class="col s11"><ionic-ratings ratingsobj='ratingsObject'></ionic-ratings></div>
       <div class="col s1"><i class="small material-icons">chat_buble</i></div>
-    </div>
+    </div> -->
 
-	<div class="row test-block" ng-click="startTest(selectedPill)">
+	<div ng-show="selectedTest != undefined" class="row test-block" ng-click="startTest(selectedPill)">
       <div class="col s11"><b>Test</b></div>
       <div class="col s1">0/0</div>
     </div>

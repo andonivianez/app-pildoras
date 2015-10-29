@@ -2,6 +2,11 @@ var app = angular.module('starter.controllers', [])
 
 app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $localstorage, $ionicLoading, LoginService, $state, $rootScope, $http, $ionicPopup) {
 
+
+
+  $scope.platform = ionic.Platform.platform();
+  console.log($scope.platform);
+
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -271,11 +276,14 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
     }else{
       $rootScope.historial.push($scope.datapill);
       $localstorage.setObject('historial', $rootScope.historial);
-      console.log($rootScope.historial);
+      console.log("Aquí va nuestro precioso historial "+$rootScope.historial);
     }
     
     $scope.selectedPill = $rootScope.selectedPill;
-    console.log("El elegido esssssss: "+$scope.selectedPill)
+    $scope.selectedTest = $scope.datapill[$scope.selectedPill].test;
+
+    //console.log("El elegido esssssss: "+$scope.selectedPill)
+    console.log("Y nuestro maravilloso test es: "+$scope.selectedTest);
     //videoplayer params
     $scope.clipSrc = $sce.trustAsResourceUrl($scope.datapill[$scope.selectedPill].translations.es.video_url);
     $scope.myPreviewImageSrc = $scope.datapill[$scope.selectedPill].translations.es.image_url;
@@ -357,8 +365,9 @@ app.controller('SearchCtrl', function($scope, $stateParams) {
 
 });
 
-app.controller('TestCtrl', function($scope, $stateParams) {
+app.controller('TestCtrl', function($scope, $stateParams, $rootScope) {
   console.log($stateParams)
+  $scope.datapill= $rootScope.detail_pill;
 
   $scope.process = 'prevtest';
 

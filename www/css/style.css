@@ -32,7 +32,36 @@ input:focus:not([readonly]) + label{
   font-size: 4.5vw;
 }
 
+.input-field{
+  margin: 0 !important;
+}
 
+
+
+input[type="email"], input[type="password"]{
+    height: 7vh;
+    background-color: rgb(242, 247, 232);
+    margin: 0;
+    margin-bottom: 1vh;
+    padding-left: 4vw;
+    margin-right: 2vw;
+    width: 95%;
+    font-size: 4.5vw;
+    color: #666666;
+}
+
+.input-field label{
+  font-family: Roboto;
+  color: #666666 !important;
+  position: absolute;
+  top: 0.3rem;
+  left: 1.2rem;
+  font-size: 1.2rem;
+}
+
+label{
+  line-height: 2.4;
+}
 
 .login-avatar{
   background-color:#f2f2f2 !important;
@@ -48,9 +77,9 @@ input:focus:not([readonly]) + label{
 }
 
 .loginBottomBlock{
-    margin-top: 68%;
+    margin-top: 46vh;
     position: relative;
-    width: 100%;
+    width: 90%;
 }
 
 .page_background_color{
@@ -295,6 +324,12 @@ ul.rating li i {
     top: 3em;
 }
 
+.login-button{
+    border-radius: 3px;
+    font-family: Roboto;
+    font-size: 5vw;
+}
+
 .social-login {
     position: fixed;
     bottom: 0;
@@ -322,11 +357,12 @@ ul.rating li i {
 }
 
 .test-prev-title{
-  color: #80b51b !important;
-  font-size: 3em;
-  font-family: "Roboto";
-  text-align: center;
-  padding-top: 1em;
+    color: #80b51b !important;
+    font-size: 3em;
+    font-family: "Roboto";
+    text-align: center;
+    position: relative;
+    margin-top: 11vh;
 }
 
 .test-center-img{
@@ -343,6 +379,10 @@ ul.rating li i {
 .testItems{
   border: none !important;
 
+}
+
+.testPage{
+  margin: none !important;
 }
 
 
