@@ -1,22 +1,32 @@
 <ion-header-bar align-title="center" class="bar-balanced">
   <div class="buttons">
-   <a href="#/settings">
-    <button class="button button-icon button-clear ion-android-arrow-back"></button>
+   <a href="#/settings" nav-transition="ios">
+    <button class="button button-icon button-clear ion-android-arrow-back" nav-direction="back"></button>
     </a>
   </div>
-  <h1 class="title">Acerca de</h1>
+  <h1 class="title">{{ 'ACERCADE' | translate }}</h1>
 </ion-header-bar>
 <ion-view view-title="Acerca de" hide-nav-bar="true">
   <ion-content>
-   <div class="row responsive-sm">
-   <h1 class="avisoLegalTitle">Lorem ipsum dolor sit amet</h1>
-  <div class="col">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sed laoreet lectus, sed rhoncus augue. Curabitur hendrerit, nisi quis vehicula iaculis, ligula mauris lacinia sapien, in consectetur ex magna sodales odio. Curabitur feugiat ullamcorper leo, vel vulputate leo eleifend non. Vivamus sed consectetur diam. Sed vel ex eu ante dictum sagittis vel ut nisl.
-  Phasellus tempor consequat justo, et feugiat libero ullamcorper at. Aenean at luctus massa, at malesuada tellus. Ut ornare ligula vel eros molestie scelerisque. Suspendisse auctor pulvinar justo, sit amet dictum nulla egestas sed. Nullam nec est ac ligula sodales iaculis.
+   <div class="container">
+   <h1 class="avisoLegalTitle col">Lorem ipsum dolor sit amet</h1>
+  <div class="col avisoLegalText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sed laoreet lectus, sed rhoncus augue. Curabitur hendrerit, nisi quis vehicula iaculis, ligula mauris lacinia sapien, in consectetur ex magna sodales odio. Curabitur feugiat ullamcorper leo, vel vulputate leo eleifend non. Vivamus sed consectetur diam. Sed vel ex eu ante dictum sagittis vel ut nisl.
+  Phasellus tempor consequat justo, et feugiat libero ullamcorper at. Aenean at luctus massa, at malesuada tellus. Ut ornare ligula vel eros molestie scelerisque. Suspendisse auctor pulvinar justo, sit amet dictum nulla egestas sed. Nullam nec est ac ligula sodales iaculis.<br />
 
-  Proin sit amet ante varius, maximus ante at, volutpat lorem. Sed sed dui eros. In pretium ipsum nec magna aliquet lobortis. Donec ut eleifend nibh, vel lobortis justo. Aliquam et dui risus. Nunc ornare enim vitae nisi porttitor vestibulum. Mauris porta ipsum mollis lacus accumsan vulputate. Pellentesque semper id sapien sed faucibus. Mauris at tincidunt sapien.
+  Proin sit amet ante varius, maximus ante at, volutpat lorem. Sed sed dui eros. In pretium ipsum nec magna aliquet lobortis. Donec ut eleifend nibh, vel lobortis justo. Aliquam et dui risus. Nunc ornare enim vitae nisi porttitor vestibulum. Mauris porta ipsum mollis lacus accumsan vulputate. Pellentesque semper id sapien sed faucibus. Mauris at tincidunt sapien.<br />
 
   Phasellus volutpat vitae felis lacinia sagittis. Nam sed enim porta elit tincidunt varius. Nulla eget efficitur metus. Cras fringilla sem dui, quis ornare orci vehicula eu. Vivamus tempor, lacus at sollicitudin semper, est justo gravida enim, eu molestie sapien diam ac elit. Aliquam feugiat est sed lacus dignissim, non lacinia orci laoreet. Quisque laoreet justo eu fringilla accumsan. In placerat velit ac euismod porttitor. Aenean in risus eget justo luctus consectetur non eget risus. Etiam porta diam vel mauris eleifend, quis condimentum sapien condimentum. Ut faucibus a lectus ac commodo. Aenean aliquam sem erat. Suspendisse gravida dui metus, sed varius turpis venenatis ac. Proin ornare id enim id convallis.
   </div>
+
+    <div class="row">
+      <div class="col s6">{{ 'CONLACOLABORACIONDE' | translate }}</div>
+      <div class="col s6">{{ 'DESARROLLADOPOR' | translate }}</div>
+    </div>
+
+     <div class="row">
+      <div class="col s6" style="height: 19vh;"><img style="height: 14vh; background-color: #f2f2f2; padding: 5vw;" ng-src="img/svg/dipu.svg"></div>
+      <div class="col s6" style="height: 19vh;"><img style="height: 14vh; background-color: #f2f2f2; padding: 9vw;" ng-src="img/svg/tak.svg"></div>
+    </div>
 </div> 
   </ion-content>
 </ion-view>

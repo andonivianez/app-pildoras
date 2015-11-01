@@ -1,18 +1,18 @@
 <ion-modal-view>
-      <ion-content style="min-height:100%;">
+      <ion-content style="min-height:100%;" overflow-scroll="true" scroll="true">
         <form ng-submit="submit()" >
           <div class="hero no-header flat">
             <img class="login-logo" ng-src="img/svg/logo.svg">
           </div>
           <div class="loginBottomBlock container">
               <div class="input-field col s12">
-                <input ng-model="loginData.username" id="email" type="email" placeholder="Nombre de usuario" >
+                <input ng-model="loginData.username" id="email" type="email" placeholder = "{{'NOMBREUSUARIO' | translate}}" >
               </div>
               <div class="input-field col s12">
-                <input ng-model="loginData.password" placeholder="Contraseña" id="password" type="password">
+                <input ng-model="loginData.password" placeholder = "{{'CONTRASEÑA' | translate}}" id="password" type="password">
               </div>
-                <div class="col s12"><button class="button button-full button-balanced login-button">ACCEDER</button></div>
-               <div class="col s12"><h4 style="text-align:center;" class="balanced">Necesito ayuda para acceder</h4></div>
+                <div class="col s12"><button class="button button-full button-balanced login-button">{{ 'ACCEDER' | translate }}</button></div>
+               <div class="col s12"><h4 style="text-align:center;" class="balanced">{{ 'HELPACCEDER' | translate }}</h4></div>
           </div>
         </form>
     </ion-content>

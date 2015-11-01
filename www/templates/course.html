@@ -9,14 +9,14 @@
 	<a href="#/app/courses">
 		<button class="btn-floating waves-effect waves-light button-balanced icon ion-ios-arrow-back pill-back"></button>
 	</a>
-	<videoplayer></videoplayer>
-	
+	<videoplayer ng-show="videoLink != null"></videoplayer>
+	<pdfviewer ng-show="videoLink == null"></pdfviewer>
   <!--  <div class="row responsive-sm detailPill-responsive-block-adjust">
 	    <h2 class="col detailPill-title">{{datapill[selectedPill].translations.es.title}}</h2>
 	    <h4 class="col dataPill-authorData"><b>{{datapill[selectedPill].author}}</b> | {{datapill[selectedPill].date_start| date:" yyyy · MM · dd"}}</h4>
     </div> 
 
-    <div class="col rating_detalle"><!--<rating readonly="readOnly" ng-model="rate" max="max"></rating></div>
+    <div class="col rating_detalle"><rating readonly="readOnly" ng-model="rate" max="max"></rating></div>
     <div class="row">
 		<div class="test-block" >
 		  <div class="col col-75"></div>
@@ -29,11 +29,11 @@
 	</div>
     -->
 
-    <div class="row">
+    <div class="row dataPillTitle-row">
       <div class="col s12"><h2 class="col detailPill-title">{{datapill[selectedPill].translations.es.title}}</h2></div>
     </div>
 
-    <div class="row">
+    <div class="row dataPill-Author-row">
       <div class="col s12"><h4 class="col dataPill-authorData"><b>{{datapill[selectedPill].author}}</b> | {{datapill[selectedPill].date_start| date:" yyyy · MM · dd"}}</h4></div>
     </div>
 
@@ -44,39 +44,39 @@
     </div> -->
 
 	<div ng-show="selectedTest != undefined" class="row test-block" ng-click="startTest(selectedPill)">
-      <div class="col s11"><b>Test</b></div>
-      <div class="col s1">0/0</div>
+      <div class="col s11"><b>{{ 'TEST' | translate }}</b></div>
+      <div class="col s1" style="text-align: right;">0/1</div>
     </div>
 
 	<div class="list pill-options">
-        <ion-toggle ng-model="offline.checked"
+        <ion-toggle class="detailPillToogle flow-text" ng-model="offline.checked"
                     ng-change="offlineChange()">
-			<i class="icon ion-pin"></i>
-           Disponible sin conexión
+			<i class="icon ion-pin small dark"></i>
+          {{ 'DISPONIBLESINCONEXION' | translate }}
         </ion-toggle>
 
-        <ion-toggle ng-model="later.checked"
+        <ion-toggle class="detailPillToogle" ng-model="later.checked"
                     ng-change="laterChange()">
-        	<i class="icon ion-eye"></i>
+        	<i class="icon ion-ios-clock small dark"></i>
            Ver más tarde
         </ion-toggle>
 	 </div>
 
 	<div class="row">
-      <div class="col s12"><h2 class="col detailPill-descripcion">Descripción</h2></div>
+      <div class="col s12"><h2 class="col detailPill-descripcion">{{ 'DESCRIPCION' | translate }}</h2></div>
+    </div>
+
+	<div class="col">
+      <div class="col s12 detailPill-descripcion-text"><p>{{datapill[selectedPill].translations.es.description}}</p></div>
+    </div>
+
+
+	<div class="row dataPillComent-row">
+      <div class="col s12"><h2 class="col detailPill-comentarios">{{ 'COMENTARIOS' | translate }}</h2></div>
     </div>
 
 	<div class="row">
-      <div class="col s12 detailPill-descripcion-text">{{datapill[selectedPill].translations.es.description}}</div>
-    </div>
-
-
-	<div class="row">
-      <div class="col s12"><h2 class="col detailPill-comentarios">Comentarios</h2></div>
-    </div>
-
-	<div class="row">
-      <div class="col s12 detailPill-descripcion-text"><h4 class="col detailPill-comentarios-insert" ng-click="addComment()">Escribe aquí tu comentario</h4></div>
+      <div class="col s12 detailPill-descripcion-text"><h4 class="col detailPill-comentarios-insert" ng-click="addComment()">{{ 'ESCRIBEAQUITUCOMENTARIO' | translate }}</h4></div>
     </div>
   </ion-content>
 </ion-view>

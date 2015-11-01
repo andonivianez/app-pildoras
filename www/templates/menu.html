@@ -18,18 +18,25 @@
   <ion-side-menu side="left">
 
     <ion-content overflow-scroll="true">
-      <div class="item item-avatar login-avatar">
+      <div class="login-avatar">
         <p class="avatar-name balanced">aezponda@tak.es</p>
       </div>
       <div class="list">
-        <div class="sideMenuList" ng-controller="CoursesCtrl" ng-repeat="cat in categories track by $index">
-            <ion-item class="item item-icon-left" menu-close >
+        <div class="sideMenuList" ng-controller="CoursesCtrl" > </div> 
+         <!--  <ion-item class="item item-icon-left" menu-close ng-repeat="cat in categories track by $index">
               {{cat.name}}
-            </ion-item>
-        </div>
-         <!-- <ion-item class="item" menu-close ng-click="login()">
-            [DEV]Login
-          </ion-item> -->
+            </ion-item> -->
+        
+          <ion-item class="item" style="border:none; width: 100%; color: #80b51b; font-weight: bolder;" menu-close>
+            Lorem ipsum Vivamus sed consectetur
+          </ion-item> 
+          <ion-item class="item" style="border:none; width: 100%;" menu-close>
+            Dolor sit amet consectetursed 
+          </ion-item>
+          <ion-item class="item" style="border:none; width: 100%;" menu-close>
+            Vivamus sed consectetur
+          </ion-item>
+        
           <div class="bottomFixedMenuList">
             <ion-item class="item item-icon-left menuListElements" menu-close ng-click="laterModalOpen()">
               <i class="icon ion-eye"></i> {{ 'VERMASTARDE' | translate }}
@@ -47,7 +54,7 @@
               {{ 'CONFIGURACION' | translate }}
             </ion-item>
             <ion-item menu-close class="item item-icon-left menuListElements" ng-click="logout()">
-              <i class="icon ion-android-exit"></i>
+              <i class="icon ion-close-round"></i>
               {{ 'DESCONECTAR' | translate }}
             </ion-item>
           </div>

@@ -1,25 +1,25 @@
 <ion-header-bar align-title="center" class="bar-balanced">
   <div class="buttons">
-  <a href="#/settings">
-    <button class="button button-icon button-clear ion-android-arrow-back"></button>
+  <a href="#/settings"  nav-transition="ios">
+    <button class="button button-icon button-clear ion-android-arrow-back" nav-direction="back"></button>
     </a>
   </div>
-  <h1 class="title">Idioma</h1>
+  <h1 class="title">{{ 'IDIOMA' | translate }}</h1>
 </ion-header-bar>
-<ion-view view-title="Ajustes" hide-nav-bar="true" class="blank_background_color">
+<ion-view ng-controller="SettingsCtrl" view-title="Ajustes" hide-nav-bar="true" class="blank_background_color">
   <ion-content>
-<div class="list">
+<div class="list" >
 
-  <label class="item item-radio">
-    <input type="radio" name="group" checked="checked">
+  <label class="item item-radio" ng-click="toggleLang('es')">
+    <input type="radio" name="group" checked="checked" >
     <div class="item-content idiomas-text">
      Castellano
     </div>
     <i class="radio-icon ion-checkmark balanced"></i>
   </label>
 
-    <label class="item item-radio">
-    <input type="radio" name="group">
+    <label class="item item-radio" ng-click="toggleLang('eu')">
+    <input type="radio" name="group" >
     <div class="item-content idiomas-text">
       Euskara
     </div>

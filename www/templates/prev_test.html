@@ -3,18 +3,19 @@
 			<button class="btn-floating waves-effect waves-light button-balanced icon ion-ios-arrow-back pill-back"></button>
 		</a>
 <div class="container testPage">
-	<div class="row">
-	  <div class="col s12 test-prev-title">{{datapill[selectedPill].test.name}}</div>
+
+	<div class="col">
+	  <div class="col s12 test-prev-title">{{ 'TEST' | translate }}</div>
 	</div>
-	<div class="row">
+	<div class="col" style="  margin-top: 7vh;">
 	  <div class="col s12"><img ng-src="img/svg/test.svg" class="test-center-img" /></div>
 	</div>
-	<div class="row">
+	<div class="col">
 	  <div class="col s12" style="color:#3c3c3c; font-size:4.5vw;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque efficitur hendrerit ipsum finibus lacinia. Vestibulum dapibus viverra tellus,</div>
 
 	</div>	
 
-	<div class="row">
-	  <div class="col s12"><button class="button button-full button-balanced login-button" ng-click="beginTest()">Comenzar</button></div>
+	<div class="col">
+	  <div class="col s12"><button class="button button-full button-balanced login-button" ng-click="beginTest()">{{ 'COMENZAR' | translate }}</button></div>
 	</div>
 </div>

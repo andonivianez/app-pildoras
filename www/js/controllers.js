@@ -59,6 +59,7 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $localstorage,
         // Erase the token if the user fails to log in
         //delete $window.sessionStorage.token;
         console.log("Algo ha ido mal: "+data); 
+        Materialize.toast('Nombre de usuario y contraseña incorrecto', 3000) // 4000 is the duration of the toast
         $localstorage.clear();
         $scope.modal.show();
       });
@@ -74,13 +75,12 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $localstorage,
           //si tenemos token, habría que lanzar la carga de píldoras primero antes de ir a la página principal
           $state.go('app.courses');
         }else{
-          alert("Usuario/contraseña incorrectos");
+          Materialize.toast('Nombre de usuario y contraseña incorrecto', 3000) // 4000 is the duration of the toast
           $state.go('loading');
           $scope.modal.show();
         }
       }, 3000);
   }
-
 
 
     // A confirm dialog
@@ -174,8 +174,9 @@ app.controller('CoursesCtrl', function($http,$scope, $sce, $stateParams, $ionicP
     $scope.getEachPill = function(pillList){
         angular.forEach(pillList, function(pill) {
             angular.forEach(pill.category, function(category) {
-                  //console.log(category)
-                 $rootScope.categories[category.id] = category;
+                  console.log(category)
+                 $rootScope.categories.push(category.name);
+                 console.log($rootScope.categories);
                   //$scope.$apply();
 
             });
@@ -267,7 +268,7 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
 
    // console.log($ionicHistory.viewHistory());
     $scope.datapill= $rootScope.detail_pill;
-    console.log($scope.datapill);
+    //console.log($scope.datapill);
 
 
     //cada vez que entre metemos la pill en el historial
@@ -276,16 +277,18 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
     }else{
       $rootScope.historial.push($scope.datapill);
       $localstorage.setObject('historial', $rootScope.historial);
-      console.log("Aquí va nuestro precioso historial "+$rootScope.historial);
+      console.log($rootScope.historial);
     }
     
     $scope.selectedPill = $rootScope.selectedPill;
     $scope.selectedTest = $scope.datapill[$scope.selectedPill].test;
-
+    $scope.historial = $rootScope.historial;
     //console.log("El elegido esssssss: "+$scope.selectedPill)
-    console.log("Y nuestro maravilloso test es: "+$scope.selectedTest);
     //videoplayer params
-    $scope.clipSrc = $sce.trustAsResourceUrl($scope.datapill[$scope.selectedPill].translations.es.video_url);
+
+    $scope.videoLink = $scope.datapill[$scope.selectedPill].translations.es.video_url;
+    console.log("Link al video "+$scope.videoLink);
+    $scope.clipSrc = $sce.trustAsResourceUrl($scope.videoLink);
     $scope.myPreviewImageSrc = $scope.datapill[$scope.selectedPill].translations.es.image_url;
     $scope.resource_size = $scope.datapill[$scope.selectedPill].translations.es.resource_size;
 
@@ -339,6 +342,18 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
     $scope.startTest = function(pillId){
       $state.go('test', {testId: pillId})
     }
+    $scope.openPdf = function(pillId){
+      //link tuneado
+      console.log("Abrimos el pdf");
+        $cordovaFileOpener2.open(
+          $scope.datapill[$scope.selectedPill].translations.es.resource_url,
+          'application/pdf'
+        ).then(function() {
+            // file opened successfully
+        }, function(err) {
+            // An error occurred. Show a message to the user
+        });
+    }
 
     $scope.volverACursos = function(){
       //console.log("que pasa")
@@ -365,7 +380,7 @@ app.controller('SearchCtrl', function($scope, $stateParams) {
 
 });
 
-app.controller('TestCtrl', function($scope, $stateParams, $rootScope) {
+app.controller('TestCtrl', function($scope, $stateParams, $rootScope, $state) {
   console.log($stateParams)
   $scope.datapill= $rootScope.detail_pill;
 
@@ -379,13 +394,33 @@ app.controller('TestCtrl', function($scope, $stateParams, $rootScope) {
   }
   $scope.endTest = function(){
     $scope.process = 'endtest';
+     $state.go('app.courses');
+  }
+
+  $scope.validateTest = function(){
+    //bien estático
+    $scope.isOk = true;
+     $timeout(function() {
+        //abrimos y cerramos a los 3 segundos
+        $scope.isOk = false;   
+    }, 3000);
   }
 
 });
 
-app.controller('SettingsCtrl', function($scope, $stateParams, $ionicHistory) {
+app.controller('SettingsCtrl', function($scope, $stateParams, $ionicHistory, $translate) {
   console.log($stateParams)
   $ionicHistory.clearHistory();
+  $scope.toggleLang = function (lang) {
+        console.log(lang);
+       $translate.use(lang);
+       console.log($translate.use());
+  }
+
+  $scope.sendMessage = function (){
+    Materialize.toast('Mensaje enviado correctamente', 3000) // 4000 is the duration of the toast
+  }
+
 });
 
 /*Services*/
@@ -513,5 +548,12 @@ app.directive('endtest', function() {
   return {
     restrict: 'E',
     templateUrl: 'templates/last_test.html'
+  }
+});
+
+app.directive('pdfviewer', function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'templates/pdfviewer.html'
   }
 });
