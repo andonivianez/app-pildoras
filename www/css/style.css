@@ -4,7 +4,6 @@ html{
   font-family: "Roboto";
 }
 
-
 /* Colores  */
 .balanced{
   color: #80b51b !important;
@@ -25,6 +24,11 @@ html{
 
 h1, h2{
   color: #666666;
+}
+
+title{
+  font-family: "Roboto regular";
+  font-size: 3.5vh;
 }
 
 input:focus:not([readonly]){
@@ -51,6 +55,12 @@ input[type="email"], input[type="password"]{
     font-size: 4.5vw;
     color: #666666;
 }
+
+
+input[type="search"]{
+  margin: inherit;
+}
+
 
 .input-field label{
   font-family: Roboto;
@@ -267,8 +277,9 @@ ul.rating li i {
 }
 
 .detailPill-descripcion-text{
-    font-size: 4.5vw;
-    font-family: Roboto light;
+  font-family: "Roboto light";
+  color: #666666;
+  font-size: 3.3vh;
 }
 
 .detailPill-comentarios-insert{
@@ -316,6 +327,18 @@ ul.rating li i {
   width: 96.5%;
 }
 
+.comentarios-header-text{
+  font-family: "Roboto light";
+  color: #999999;
+}
+
+.comentarios-body-text{
+  font-family: "Roboto light";
+  color: #666666;
+  font-size: 3.3vh;
+}
+
+
 .popup{
   width: 88% !important;
   border-radius: 3px !important;
@@ -351,6 +374,23 @@ ul.rating li i {
     top: 0;
 }
 
+/* popup de comentario */
+.courseBackgroundPopUp{
+
+}
+
+.coment-input{
+  background-color: #fafafa;
+  border-left: none;
+  border-right: none;
+}
+
+.addCommentTitle{
+  text-align: center;
+  font-family: "Roboto regular";
+  font-size: 4vh;
+  color: #666666;
+}
 
 /* Login
 ==================================*/
@@ -455,6 +495,8 @@ ul.rating li i {
   padding: inherit !important;
   padding-bottom: 0.5em !important;
   margin-left: auto !important;
+  font-family: Roboto regular;
+  font-weight: 600;
 }
 
 /* Settings section  */

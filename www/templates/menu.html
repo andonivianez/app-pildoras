@@ -19,14 +19,15 @@
 
     <ion-content overflow-scroll="true">
       <div class="login-avatar">
-        <p class="avatar-name balanced">aezponda@tak.es</p>
+        <p class="avatar-name">aezponda@tak.es</p>
       </div>
       <div class="list">
-        <div class="sideMenuList" ng-controller="CoursesCtrl" > </div> 
-         <!--  <ion-item class="item item-icon-left" menu-close ng-repeat="cat in categories track by $index">
-              {{cat.name}}
-            </ion-item> -->
-        
+       <div class="sideMenuList"  > 
+         <ion-item class="item" ng-controller="CoursesCtrl"  style="border:none; width: 100%;" menu-close collection-repeat="cat in categories">
+            {{cat.name}}
+          </ion-item> 
+         </div>
+        <!--
           <ion-item class="item" style="border:none; width: 100%; color: #80b51b; font-weight: bolder;" menu-close>
             Lorem ipsum Vivamus sed consectetur
           </ion-item> 
@@ -35,7 +36,7 @@
           </ion-item>
           <ion-item class="item" style="border:none; width: 100%;" menu-close>
             Vivamus sed consectetur
-          </ion-item>
+          </ion-item>-->
         
           <div class="bottomFixedMenuList">
             <ion-item class="item item-icon-left menuListElements" menu-close ng-click="laterModalOpen()">

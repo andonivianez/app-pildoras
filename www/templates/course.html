@@ -55,28 +55,36 @@
           {{ 'DISPONIBLESINCONEXION' | translate }}
         </ion-toggle>
 
-        <ion-toggle class="detailPillToogle" ng-model="later.checked"
+        <ion-toggle class="detailPillToogle flow-text" ng-model="later.checked"
                     ng-change="laterChange()">
         	<i class="icon ion-ios-clock small dark"></i>
-           Ver más tarde
+           {{ 'VERMASTARDE' | translate }}
         </ion-toggle>
 	 </div>
 
-	<div class="row">
-      <div class="col s12"><h2 class="col detailPill-descripcion">{{ 'DESCRIPCION' | translate }}</h2></div>
-    </div>
 
-	<div class="col">
-      <div class="col s12 detailPill-descripcion-text"><p>{{datapill[selectedPill].translations.es.description}}</p></div>
+    <div class="col s12">
+      <h2 class="col detailPill-descripcion">{{ 'DESCRIPCION' | translate }}</h2>
     </div>
 
 
-	<div class="row dataPillComent-row">
-      <div class="col s12"><h2 class="col detailPill-comentarios">{{ 'COMENTARIOS' | translate }}</h2></div>
+    <div class="col s12 detailPill-descripcion-text">
+      <p class="col">{{datapill[selectedPill].translations.es.description}}</p>
     </div>
 
-	<div class="row">
-      <div class="col s12 detailPill-descripcion-text"><h4 class="col detailPill-comentarios-insert" ng-click="addComment()">{{ 'ESCRIBEAQUITUCOMENTARIO' | translate }}</h4></div>
+    <div class="col s12">
+      <h2 class="col detailPill-comentarios">{{ 'COMENTARIOS' | translate }}</h2>
     </div>
+
+    <div class="col s12 detailPill-descripcion-text">
+      <h4 class="col detailPill-comentarios-insert" ng-click="addComment()">{{ 'ESCRIBEAQUITUCOMENTARIO' | translate }}</h4>
+    </div>
+
+    <comentarios>
+
+    </comentarios>
+
+
+
   </ion-content>
 </ion-view>

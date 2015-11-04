@@ -87,7 +87,7 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $localstorage,
      $scope.logout = function() {//esto falta poner popup de los buenos
        var confirmPopup = $ionicPopup.confirm({
         title: 'Desconexión del usuario',
-        template: '¿Estás seguro de que deseas desconectar al usuario?',
+        template: '¿Estás seguro de que deseas desconectar?',
         cssClass: 'courseBackgroundPopUp', // String, The custom CSS class name
         //template: '<a>Estoy es una prueba de lo que saldría</a>', // String (optional). The html template to place in the popup body.
         cancelText: 'Cancelar', // String (default: 'Cancel'). The text of the Cancel button.
@@ -153,15 +153,13 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $localstorage,
 
 })
 
-app.controller('CoursesCtrl', function($http,$scope, $sce, $stateParams, $ionicPopup, $rootScope, $ionicPopover, $ionicHistory, $state, LoginService, $localstorage, $ionicModal) {
+app.controller('CoursesCtrl', function($http,$scope, $sce, $stateParams, $ionicPopup, $rootScope, $ionicPopover, $ionicHistory, $state, LoginService, $localstorage, $ionicModal, $ionicFilterBar) {
     $ionicHistory.clearHistory();
     $ionicHistory.clearCache();
     $scope.pills = []
     $scope.pill = {}
     $rootScope.detail_pill = {};
-    $rootScope.categories = [];
-
-
+    $scope.categories = [];
 
     $scope.offlineChange = function() {
       console.log('Push Notification Change', $scope.offline.checked);
@@ -174,18 +172,18 @@ app.controller('CoursesCtrl', function($http,$scope, $sce, $stateParams, $ionicP
     $scope.getEachPill = function(pillList){
         angular.forEach(pillList, function(pill) {
             angular.forEach(pill.category, function(category) {
-                  console.log(category)
-                 $rootScope.categories.push(category.name);
-                 console.log($rootScope.categories);
+                  //console.log(category)
+                 if ($scope.categories.indexOf(category.name) == -1){
+                    //$scope.categories.push(category.name);
+                    $scope.categories[category.id] =  {id: category.id, 'name': category.name };
+                 }
                   //$scope.$apply();
-
             });
         });
-       
+       console.log($scope.categories);
     }
 
     $scope.loadCourses = function(){
-
         var ctoken = $localstorage.getObject('token');
         var token = "Bearer "+ctoken.token;
         //console.log(token);
@@ -242,6 +240,30 @@ app.controller('CoursesCtrl', function($http,$scope, $sce, $stateParams, $ionicP
         console.log('Selected rating is : ', rating);
       };
 
+      //filterbar
+      $scope.showFilterBar = function () {
+        filterBarInstance = $ionicFilterBar.show({
+          items: $scope.pills,
+          update: function (filteredItems, filterText) {
+            $scope.pills = filteredItems;
+            if (filterText) {
+              console.log(filterText);
+            }
+          }
+        });
+      };
+
+      $scope.refreshItems = function () {
+        if (filterBarInstance) {
+          filterBarInstance();
+          filterBarInstance = null;
+        }
+        $timeout(function () {
+          loadCourses();
+          $scope.$broadcast('scroll.refreshComplete');
+        }, 1000);
+      };
+
 
     /*PopOver*/
       // .fromTemplateUrl() method
@@ -264,7 +286,7 @@ app.controller('CoursesCtrl', function($http,$scope, $sce, $stateParams, $ionicP
 
 })
 
-app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $ionicPopup, $location, $state, $ionicHistory, $ionicModal, $localstorage) {
+app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $ionicPopup, $location, $state, $ionicHistory, $ionicModal, $localstorage, $http) {
 
    // console.log($ionicHistory.viewHistory());
     $scope.datapill= $rootScope.detail_pill;
@@ -315,11 +337,12 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
     }
 
     $scope.addComment = function(pillId){
-       $ionicPopup.prompt({
-        cssClass: 'courseBackgroundPopUp', // String, The custom CSS class name
-        //template: '<a>Estoy es una prueba de lo que saldría</a>', // String (optional). The html template to place in the popup body.
-        templateUrl: 'templates/popups/comentar.html', // String (optional). The URL of an html template to place in the popup   body.
-        buttons: [{ // Array[Object] (optional). Buttons to place in the popup footer.
+      $scope.data = {}
+      var myPopup =  $ionicPopup.prompt({
+        cssClass: 'courseBackgroundPopUp', 
+        templateUrl: 'templates/popups/comentar.html', 
+        scope: $scope,
+        buttons: [{ 
             text: 'Cancelar',
             type: 'backgroundPopUpDownloadButtons',
             onTap: function(e) {
@@ -329,13 +352,29 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
             text: 'Aceptar',
             type: 'backgroundPopUpDownloadButtons',
             onTap: function(e) {
-              // Returning a value will cause the promise to resolve with the given value.
-              console.log("llamamos a la función para meterlo");
+              //console.log(e);
+              return $scope.dataC.comentario;
             }
           }],
-         inputPlaceholder: 'Escribe aquí'
-       }).then(function(res) {
-         console.log('Your password is', res);
+       });
+
+      myPopup.then(function(res) {
+         console.log('Lo escrito essssss', res);
+          var ctoken = $localstorage.getObject('token');
+          var token = "Bearer "+ctoken.token;
+          var comentdata = {message: $scope.dataC.comentario, pill: $scope.selectedPill};
+          console.log($scope.dataC);
+          //console.log(token);
+         /* delete $http.defaults.headers.common['X-Requested-With'];
+          $http
+            .get('http://app-pildoras.tak.es/app_dev.php/api/comment',{
+                headers:{
+                    'Authorization': token,
+                }
+            }, comentdata).success(function (data) {
+              Materialize.toast(data, 3000);
+            });*/
+
        });
     }
 
@@ -555,5 +594,12 @@ app.directive('pdfviewer', function() {
   return {
     restrict: 'E',
     templateUrl: 'templates/pdfviewer.html'
+  }
+});
+
+app.directive('comentarios', function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'templates/comentarios.html'
   }
 });
