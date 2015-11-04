@@ -1,8 +1,6 @@
 <ion-side-menus enable-menu-with-back-views="true">
   <ion-side-menu-content>
     <ion-nav-bar align-title="center" class="bar-balanced">
-
-
       <ion-nav-buttons side="left">
         <button class="button button-icon button-clear ion-android-menu" menu-toggle="left">
         </button>
@@ -22,9 +20,14 @@
         <p class="avatar-name">aezponda@tak.es</p>
       </div>
       <div class="list">
-       <div class="sideMenuList"  > 
-         <ion-item class="item" ng-controller="CoursesCtrl"  style="border:none; width: 100%;" menu-close collection-repeat="cat in categories">
-            {{cat.name}}
+       <div class="sideMenuList" > 
+         <ion-item class="item" style="border:none; width: 100%;" menu-close >
+            <div ng-controller="CoursesCtrl" ng-repeat="cat in categories">
+              <div ng-repeat="(key, value) in cat">
+                  {{key}} : {{value}}
+              </div>
+          </div>
+
           </ion-item> 
          </div>
         <!--

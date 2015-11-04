@@ -8,7 +8,7 @@
       <input type="search" placeholder="Buscar" ng-model="searchText">
     </label>-->
     <div class="list">
-        <ion-item nav-clear class="item-thumbnail-left" nav-transition="ios" ng-repeat="pill in pills | orderBy:pill.is_highlight:false" ng-if="pill.translations.es.image_url.indexOf('http') > -1" ng-click="getCourseById(pill.id)" ng-class="{'course-highlight': pill.is_highlight}" >
+        <ion-item nav-clear class="item-thumbnail-left course-item" nav-transition="ios" ng-repeat="pill in pills | orderBy:pill.is_highlight:false" ng-if="pill.translations.es.image_url.indexOf('http') > -1" ng-click="getCourseById(pill.id)" ng-class="{'course-highlight': pill.is_highlight}" >
           <img ng-src="{{pill.translations.es.image_url}}"/>
        <!--   <i id="thumbnail-label" class="icon ion-ios-videocam balanced" ng-if="pill.translations.es.video_url == null"></i> !-->
           <span id="thumbnail-label" class="fa-stack fa-lg" ng-if="pill.translations.es.resource_url != 'null'">
@@ -21,7 +21,7 @@
             <i class="fa fa-video-camera fa-stack-1x positive"></i>
           </span>
           <h2 class="course-title" ng-model="title">{{pill.translations.es.title}}</h2>
-          <p class="course-date"><b>{{pill.author}}</b> | {{pill.date_start | date:" yyyy · MM · dd"}}</p>
+          <p class="course-date"><b class="course-autor-courses">{{pill.author}}</b> | {{pill.date_start | date:" yyyy · MM · dd"}}</p>
           <div class="row data-row">
             <div class="col"><!--<rating readonly="readOnly" ng-model="pill.stats.rating_value_avg" max="5"></rating>--></div>
           </div>

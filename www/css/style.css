@@ -160,22 +160,34 @@ ul.rating li i {
 }
 
 .item-thumbnail-left>img:first-child{
-  max-width: 10em !important;
-  max-height: 10em !important;
+  max-width: 43vw;
+  min-height: 100%;
 }
 
 
 .course-title{
-    left: 4.2em;
-    top: 0.3em;
-    position: relative;
-    font-size: 19px !important;
+  left: 22vw;
+  top: 0.3vh;
+  position: relative;
+  font-size: 3vh !important;
+  font-family: Roboto regular;
+  width: 48vw;
 }
 
 .course-date{
-    left: 5.7em;
-    top: 1.3em;
-    position: relative;
+  left: 22vw;
+  top: 1.3vh;
+  position: relative;
+  font-family: Roboto light;
+}
+
+.course-item{
+  height: 17.8vh;
+}
+
+.course-autor-courses{
+    font-family: Roboto regular;
+  font-weight: 600;
 }
 
 .course-highlight{
@@ -197,11 +209,11 @@ ul.rating li i {
 }
 
 #thumbnail-label{
-    position: absolute;
-    text-align: center;
-    left: 0.3em;
-    bottom: 0.3em;
-  }
+  position: absolute;
+  text-align: center;
+  left: 0.1vw;
+  bottom: 0.1vw;
+}
 
 .detalle_pildora{
   background-color: #f2f2f2 !important;

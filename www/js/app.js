@@ -34,7 +34,7 @@ if(typeof navigator.globalization !== "undefined") {
 
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider, $translateProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider, $translateProvider, $ionicFilterBarConfigProvider) {
   $stateProvider
 
     .state('app', {
@@ -128,6 +128,10 @@ if(typeof navigator.globalization !== "undefined") {
   $httpProvider.defaults.headers.post = { 'Content-Type' : 'application/json' };
   $httpProvider.defaults.withCredentials = true;
   $httpProvider.interceptors.push('authInterceptor');
+
+
+  /////////////////placeholderdelbuscador/////////////
+$ionicFilterBarConfigProvider.placeholder('Buscar');
 
 ////////////////TRANSLATIOONNSSS///////
 $translateProvider.translations('es', {
