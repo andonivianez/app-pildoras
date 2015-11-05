@@ -160,7 +160,7 @@ ul.rating li i {
 }
 
 .item-thumbnail-left>img:first-child{
-  max-width: 43vw !important;
+  max-width: 43vw;
   min-height: 100%;
 }
 
