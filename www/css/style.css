@@ -1,7 +1,11 @@
 /* Empty. Add your own CSS if you like */
 
 html{
-  font-family: "Roboto";
+  font-family: "Roboto" !important;
+}
+
+* {
+  font-family: -apple-system, "Helvetica Neue", sans-serif;
 }
 
 /* Colores  */
@@ -27,7 +31,7 @@ h1, h2{
 }
 
 title{
-  font-family: "Roboto regular";
+  font-family: Roboto;
   font-size: 3.5vh;
 }
 
@@ -79,8 +83,11 @@ i.small{
 }
 
 .login-avatar{
-  background-color:#f2f2f2 !important;
-  height: 9vh !important;
+  background-color: #f2f2f2 !important;
+  height: 50px !important;
+  position: fixed;
+  z-index: 888888;
+  width: 100%;
 }
 
 .bottomFixedMenuList{
@@ -92,7 +99,7 @@ i.small{
 }
 
 .loginBottomBlock{
-    margin-top: 45vh;
+    margin-top: 180px;
     position: relative;
     width: 90%;
 }
@@ -125,15 +132,19 @@ body{
 }
 
 .avatar-name{
-  position: relative;
-  margin-right: 3vw !important;
-  float: right;
+  position: absolute !important;
   font-family: Roboto regular;
-  font-size: 4vh;
-  line-height: 9vh;
+  font-size: 19px;
   color: #666666;
+  right: 18px;
+  height: 100%;
+  line-height: 50px;
 }
 
+.topMenuList{
+    overflow: scroll;
+  height: 275px;
+}
 
 .menuListElements{
   font-size: 5vw;
@@ -141,6 +152,11 @@ body{
   font-family: Roboto regular;
   padding-left: 18vw;
   background-color: #fcfcfc;
+}
+
+.listadoCategoriasFiltro{
+  width: 100% !important;
+  border: none !important;
 }
 
 ul.rating li {
@@ -198,8 +214,14 @@ ul.rating li i {
   bottom: 7vw;
   right: 7vw;
   position: fixed;
-  height: 45px;
-  width: 45px;
+  height: 70px;
+  font-size: 6vh;
+  width: 70px;
+}
+
+.header-options-3{
+  font-size: 32px !important;
+  margin-right: 10px !important;
 }
 
 .data-row{
@@ -257,8 +279,8 @@ ul.rating li i {
   top: 5vw;
   left: 4vw;
   position: fixed;
-  height: 35px;
-  width: 35px;
+  height: 41px;
+  width: 41px;
 }
 
 .test-block{
@@ -368,6 +390,12 @@ ul.rating li i {
   border: none !important;
 }
 
+/*  Fix para el backdrop   */
+.backdrop{
+    display: initial !important;
+}
+
+
 /*    Video    */
 .centerme {
     margin: 0 auto;
@@ -399,7 +427,7 @@ ul.rating li i {
 
 .addCommentTitle{
   text-align: center;
-  font-family: "Roboto regular";
+  font-family: Roboto;
   font-size: 4vh;
   color: #666666;
 }
@@ -407,9 +435,15 @@ ul.rating li i {
 /* Login
 ==================================*/
 .login-logo{
-    position: relative !important;
-    left: -14.5em !important;
-    top: 3em;
+  position: relative !important;
+  margin-top: 41px;
+  height: 75px;
+  /*right: 50vw;*/
+  right: 180px;
+}
+
+.platform-ios .login-logo{
+  right: 200px;
 }
 
 .login-button{
@@ -561,6 +595,10 @@ ion-popover-view.fit ion-content {
   position: relative !important;
 }
 
-.platform-android ion-popover-view.fit {
-  margin-top: 10px !important;
+.platform-android ion-popover-view {
+  height: 115px;
+}
+
+.platform-ios ion-popover-view {
+  height: 115px;
 }

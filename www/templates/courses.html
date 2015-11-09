@@ -8,17 +8,17 @@
       <input type="search" placeholder="Buscar" ng-model="searchText">
     </label>-->
     <div class="list">
-        <ion-item nav-clear class="item-thumbnail-left course-item" nav-transition="ios" ng-repeat="pill in pills | orderBy:pill.is_highlight:false" ng-if="pill.translations.es.image_url.indexOf('http') > -1" ng-click="getCourseById(pill.id)" ng-class="{'course-highlight': pill.is_highlight}" >
+        <ion-item nav-clear class="item-thumbnail-left course-item" nav-transition="ios" ng-repeat="pill in pills | orderBy:pill.date_start" ng-if="pill.translations.es.image_url.indexOf('http') > -1" ng-click="getCourseById(pill.id)" ng-class="{'course-highlight': pill.is_highlight}" >
           <img ng-src="{{pill.translations.es.image_url}}"/>
        <!--   <i id="thumbnail-label" class="icon ion-ios-videocam balanced" ng-if="pill.translations.es.video_url == null"></i> !-->
-          <span id="thumbnail-label" class="fa-stack fa-lg" ng-if="pill.translations.es.resource_url != 'null'">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-file fa-stack-1x positive"></i>
+          <span id="thumbnail-label" ng-if="pill.translations.es.resource_url != null">
+          <!--   <i class="fa fa-circle fa-stack-2x"></i> -->
+            <i class="icon ion-document positive Small"></i>
           </span>
        <!--   <i id="thumbnail-label" class="icon fa fa-file balanced" ng-if="pill.translations.es.resource_url == null"></i> !-->
-          <span id="thumbnail-label" class="fa-stack fa-lg" ng-if="pill.translations.es.video_url != 'null'">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-video-camera fa-stack-1x positive"></i>
+          <span id="thumbnail-label" ng-if="pill.translations.es.video_url != null">
+           <!--  <i class="fa fa-circle fa-stack-2x"></i> -->
+            <i class="icon ion-ios-videocam positive Small"></i>
           </span>
           <h2 class="course-title" ng-model="title">{{pill.translations.es.title}}</h2>
           <p class="course-date"><b class="course-autor-courses">{{pill.author}}</b> | {{pill.date_start | date:" yyyy · MM · dd"}}</p>
@@ -27,9 +27,6 @@
           </div>
         </ion-item>
     </div>
-    <div ng-if="pills !== undefined && !pills.length" class="no-results">
-      <p>No Results</p>
-    </div>
   </ion-content>
-  <button class="btn-floating waves-effect waves-light button-balanced icon ion-search searchButton" ng-click="showFilterBar()"></button>
+  <button class="btn-floating waves-effect waves-light button-balanced icon ion-search searchButton Medium" ng-click="showFilterBar()"></button>
 </ion-view>

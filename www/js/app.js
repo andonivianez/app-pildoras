@@ -41,6 +41,7 @@ if(typeof navigator.globalization !== "undefined") {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
+    cache:false,
     controller: 'AppCtrl'
   })
 
@@ -155,7 +156,7 @@ $translateProvider.translations('es', {
     'CONLACOLABORACIONDE': 'Con la colaboración de: ',
     'DESARROLLADOPOR': 'Desarrollado por: ',
     'DISPONIBLESINCONEXION': 'Disponible sin conexión',
-    'ACCEDER': 'Acceder',
+    'ACCEDER': 'ACCEDER',
     'HELPACCEDER': 'Necesito ayuda para acceder',
     'NOMBREUSUARIO': 'Nombre de usuario',
     'CONTRASEÑA': 'Contraseña',
@@ -185,7 +186,7 @@ $translateProvider.translations('es', {
     'CONLACOLABORACIONDE': 'Laguntzailea: ',
     'DESARROLLADOPOR': 'Egilea: ',
     'DISPONIBLESINCONEXION': 'Konexiorik gabe',
-    'ACCEDER': 'Sartu',
+    'ACCEDER': 'SARTU',
     'HELPACCEDER': 'Laguntza behar dut',
     'NOMBREUSUARIO': 'Erabiltzailea',
     'CONTRASEÑA': 'Pasahitza',

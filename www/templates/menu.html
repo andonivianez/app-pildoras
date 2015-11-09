@@ -6,7 +6,7 @@
         </button>
       </ion-nav-buttons>      
       <ion-nav-buttons side="right">
-        <button ng-controller="CoursesCtrl" ng-click="popover.show($event)" class="button button-clear ion-android-more-vertical">
+        <button ng-controller="CoursesCtrl" ng-click="popover.show($event)" class="button button-clear ion-android-more-vertical header-options-3">
         </button>
       </ion-nav-buttons> 
     </ion-nav-bar>
@@ -15,21 +15,16 @@
 
   <ion-side-menu side="left">
 
-    <ion-content overflow-scroll="true">
+    <ion-content>
       <div class="login-avatar">
-        <p class="avatar-name">aezponda@tak.es</p>
+        <p class="avatar-name">{{loginData.username}}</p>
       </div>
       <div class="list">
-       <div class="sideMenuList" > 
-         <ion-item class="item" style="border:none; width: 100%;" menu-close >
-            <div ng-controller="CoursesCtrl" ng-repeat="cat in categories">
-              <div ng-repeat="(key, value) in cat">
-                  {{key}} : {{value}}
-              </div>
-          </div>
-
+        <div class="topMenuList">
+          <ion-item class="listadoCategoriasFiltro" collection-repeat="cat in categories" menu-close >
+            {{cat.desc}} 
           </ion-item> 
-         </div>
+        </div>
         <!--
           <ion-item class="item" style="border:none; width: 100%; color: #80b51b; font-weight: bolder;" menu-close>
             Lorem ipsum Vivamus sed consectetur

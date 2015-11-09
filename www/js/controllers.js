@@ -1,11 +1,11 @@
 var app = angular.module('starter.controllers', [])
 
-app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $localstorage, $ionicLoading, LoginService, $state, $rootScope, $http, $ionicPopup) {
+app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $localstorage, $ionicLoading, LoginService, $state, $rootScope, $http, $ionicPopup, $cordovaToast) {
 
 
 
   $scope.platform = ionic.Platform.platform();
-  console.log($scope.platform);
+  //console.log($scope.platform);
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -52,14 +52,14 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $localstorage,
       .post('http://app-pildoras.tak.es/app_dev.php/api/login_check', user)
       .success(function (data) {
         responsedata = data;
-        console.log(responsedata);
+        //console.log(responsedata);
         $scope.continueToCourses(responsedata);
       })
       .error(function (data) {
         // Erase the token if the user fails to log in
         //delete $window.sessionStorage.token;
         console.log("Algo ha ido mal: "+data); 
-        Materialize.toast('Nombre de usuario y contraseña incorrecto', 3000) // 4000 is the duration of the toast
+        $scope.showToast('Nombre de usuario/contraseña incorrectos', 'long', 'bottom');
         $localstorage.clear();
         $scope.modal.show();
       });
@@ -70,7 +70,8 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $localstorage,
           //si consigue el token cerramos y le llevamos a la página principal.
         if(!angular.isUndefined(token)){
           $localstorage.setObject('token', token);
-          console.log("Hola estoy aquí ");
+          //console.log("Hola estoy aquí ");
+          $scope.showToast('Conexión correcta', 'long', 'bottom');
           //alert("Aquí lo tienes crack!: "+token.token);
           //si tenemos token, habría que lanzar la carga de píldoras primero antes de ir a la página principal
           $state.go('app.courses');
@@ -150,6 +151,19 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $localstorage,
       $state.go('settings');
     }
 
+     
+    $scope.categories = $rootScope.categories;
+    //console.log($scope.categories);
+
+    //mensajes toast Cordova
+    $scope.showToast = function(message, duration, location) {
+        $cordovaToast.show(message, duration, location).then(function(success) {
+            console.log("The toast was shown");
+        }, function (error) {
+            console.log("The toast was not shown due to " + error);
+        });
+    }
+
 
 })
 
@@ -159,7 +173,9 @@ app.controller('CoursesCtrl', function($http,$scope, $sce, $stateParams, $ionicP
     $scope.pills = []
     $scope.pill = {}
     $rootScope.detail_pill = {};
-    $scope.categories = [];
+    $rootScope.categories = [];
+    $scope.sortBy = '';
+
 
     $scope.offlineChange = function() {
       console.log('Push Notification Change', $scope.offline.checked);
@@ -170,18 +186,22 @@ app.controller('CoursesCtrl', function($http,$scope, $sce, $stateParams, $ionicP
     
     //Get each pill data
     $scope.getEachPill = function(pillList){
-        angular.forEach(pillList, function(pill) {
-            angular.forEach(pill.category, function(category) {
-                  //console.log(category)
-                 if ($scope.categories.indexOf(category.name) == -1){
-                    //$scope.categories.push(category.name);
-                    $scope.categories[category.id] =  {id: category.id, 'name': category.name };
-                 }
-                  //$scope.$apply();
-            });
-        });
-       console.log($scope.categories);
+
+      var cats = [];
+
+      for (var i = 0; i < pillList.length; i++) { 
+            cats[i] = {'desc': pillList[i].category[0].name}
+      }
+
+      $rootScope.categories = cats;
+
     }
+
+    $scope.setSort = function(){
+
+    }
+
+
 
     $scope.loadCourses = function(){
         var ctoken = $localstorage.getObject('token');
@@ -194,14 +214,12 @@ app.controller('CoursesCtrl', function($http,$scope, $sce, $stateParams, $ionicP
                   'Authorization': token,
               }
           }).success(function (data) {
-                //console.log(data.pills);
                 $localstorage.setObject('pills', data.pills);
                 $scope.pills = $localstorage.getObject('pills');
-                //console.log($scope.pills);
+                console.log($scope.pills);
                 $scope.$broadcast('scroll.refreshComplete');
                 $scope.getEachPill($scope.pills);
-              });
-          console.log("Actualizo Pills");
+              });          
     }; 
 
 
@@ -313,6 +331,9 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
     $scope.clipSrc = $sce.trustAsResourceUrl($scope.videoLink);
     $scope.myPreviewImageSrc = $scope.datapill[$scope.selectedPill].translations.es.image_url;
     $scope.resource_size = $scope.datapill[$scope.selectedPill].translations.es.resource_size;
+    $scope.comentarios = $scope.datapill[$scope.selectedPill].comment;
+
+    console.log($scope.comentarios);
 
     $scope.backgroundDownload = function(){ //está la info en marcadores
       var confirmPopup = $ionicPopup.confirm({
@@ -335,9 +356,9 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
         }
       });
     }
-
+    $scope.dataC = {};
     $scope.addComment = function(pillId){
-      $scope.data = {}
+   
       var myPopup =  $ionicPopup.prompt({
         cssClass: 'courseBackgroundPopUp', 
         templateUrl: 'templates/popups/comentar.html', 
@@ -353,29 +374,40 @@ app.controller('CourseCtrl', function($scope, $stateParams, $sce, $rootScope, $i
             type: 'backgroundPopUpDownloadButtons',
             onTap: function(e) {
               //console.log(e);
-              return $scope.dataC.comentario;
+              //return $scope.dataC.comentario;
+
             }
           }],
        });
 
       myPopup.then(function(res) {
-         console.log('Lo escrito essssss', res);
+         //console.log('Lo escrito essssss', res);
           var ctoken = $localstorage.getObject('token');
           var token = "Bearer "+ctoken.token;
           var comentdata = {message: $scope.dataC.comentario, pill: $scope.selectedPill};
-          console.log($scope.dataC);
+          //console.log($scope.dataC);
           //console.log(token);
-         /* delete $http.defaults.headers.common['X-Requested-With'];
+          delete $http.defaults.headers.common['X-Requested-With'];
           $http
-            .get('http://app-pildoras.tak.es/app_dev.php/api/comment',{
+            .post('http://app-pildoras.tak.es/app_dev.php/api/comment',{
                 headers:{
                     'Authorization': token,
                 }
             }, comentdata).success(function (data) {
-              Materialize.toast(data, 3000);
-            });*/
+               $scope.showToast('Comentario enviado correctamente', 'long', 'bottom');
+            });
 
        });
+    }
+
+
+    //mensajes toast Cordova
+    $scope.showToast = function(message, duration, location) {
+      $cordovaToast.show(message, duration, location).then(function(success) {
+      console.log("The toast was shown");
+      }, function (error) {
+      console.log("The toast was not shown due to " + error);
+      });
     }
 
     $scope.startTest = function(pillId){
@@ -447,7 +479,7 @@ app.controller('TestCtrl', function($scope, $stateParams, $rootScope, $state) {
 
 });
 
-app.controller('SettingsCtrl', function($scope, $stateParams, $ionicHistory, $translate) {
+app.controller('SettingsCtrl', function($scope, $stateParams, $ionicHistory, $translate, $cordovaToast) {
   console.log($stateParams)
   $ionicHistory.clearHistory();
   $scope.toggleLang = function (lang) {
@@ -457,8 +489,20 @@ app.controller('SettingsCtrl', function($scope, $stateParams, $ionicHistory, $tr
   }
 
   $scope.sendMessage = function (){
-    Materialize.toast('Mensaje enviado correctamente', 3000) // 4000 is the duration of the toast
+    //Materialize.toast('Mensaje enviado correctamente', 3000) // 4000 is the duration of the 
+    $scope.showToast('Mensaje enviado correctamente', 'long', 'bottom');
   }
+
+  //mensajes toast Cordova
+  $scope.showToast = function(message, duration, location) {
+    $cordovaToast.show(message, duration, location).then(function(success) {
+    console.log("The toast was shown");
+    }, function (error) {
+    console.log("The toast was not shown due to " + error);
+    });
+  }
+
+
 
 });
 
